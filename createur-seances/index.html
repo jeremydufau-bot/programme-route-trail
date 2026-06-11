@@ -1,0 +1,1912 @@
+<!-- MAJ 31/05/26 -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AB Running — Créateur de Séances Local</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #F2F5FA;
+      --bg-panel: #fff;
+      --bg-card: #F8FAFF;
+      --border-color: rgba(27, 58, 107, 0.1);
+      --border-focus: #2A5DA0;
+      --text-main: #1A2540;
+      --text-muted: #6B7A9A;
+
+      --navy: #1B3A6B;
+      --primary: #2A5DA0;
+      --primary-hover: #1B3A6B;
+      --secondary: #7BC3E5;
+      --secondary-hover: #4A7ECC;
+      --accent: #4A8A5A;
+      --accent-hover: #3a7048;
+      --warning: #D4893A;
+      --rest-color: #6B7A9A;
+      --rest-bg: rgba(107, 122, 154, 0.08);
+      --work-bg: rgba(42, 93, 160, 0.04);
+      --gold: #B8860B;
+      --rouge: #C04040;
+
+      --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Lora', serif;
+      line-height: 1.6;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: var(--navy);
+      border-bottom: none;
+      padding: 0.7rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(27, 58, 107, 0.25);
+    }
+
+    .header-logo-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header-logo-title h1 {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .header-logo-title span {
+      background: rgba(123, 195, 229, 0.2);
+      color: var(--secondary);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(123, 195, 229, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Lora', serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.4rem 0.85rem;
+      border-radius: 7px;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      border-color: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: rgba(255,255,255,0.75);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+
+    .btn-secondary-light {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary-light:hover {
+      border-color: var(--primary);
+      color: var(--navy);
+    }
+
+    .btn-accent {
+      background-color: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .btn-accent:hover {
+      background-color: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    .btn-danger {
+      background-color: rgba(192, 64, 64, 0.1);
+      color: var(--rouge);
+      border: 1px solid rgba(192, 64, 64, 0.2);
+    }
+
+    .btn-danger:hover {
+      background-color: rgba(192, 64, 64, 0.2);
+    }
+
+    .btn-sm {
+      padding: 4px 8px;
+      font-size: 0.65rem;
+      border-radius: 5px;
+    }
+
+    .app-layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      flex-grow: 1;
+      height: calc(100vh - 65px);
+      overflow: hidden;
+    }
+
+    .sidebar {
+      background-color: var(--bg-panel);
+      border-right: 1px solid var(--border-color);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      overflow-y: auto;
+      box-shadow: 2px 0 8px rgba(27,58,107,0.04);
+    }
+
+    .sidebar-section h3 {
+      font-family: 'Lora', serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      border-left: 3px solid var(--primary);
+      padding-left: 8px;
+    }
+
+    .search-input {
+      width: 100%;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.5rem 0.75rem;
+      border-radius: 7px;
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      transition: var(--transition);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(42, 93, 160, 0.15);
+    }
+
+    .filter-select {
+      width: 100%;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.5rem 0.75rem;
+      border-radius: 7px;
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      margin-bottom: 8px;
+    }
+
+    .filter-select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(42, 93, 160, 0.15);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .stat-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .stat-card .value {
+      font-family: 'Lora', serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .stat-card .label {
+      font-size: 0.58rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .main-workspace {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      overflow: hidden;
+    }
+
+    .editor-pane {
+      padding: 1.5rem;
+      overflow-y: auto;
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .list-pane {
+      padding: 1.5rem;
+      overflow-y: auto;
+      background-color: var(--bg-dark);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .form-group label {
+      font-size: 0.58rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .form-row-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    .input-control {
+      background-color: #fff;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.5rem 0.75rem;
+      border-radius: 7px;
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      transition: var(--transition);
+      width: 100%;
+    }
+
+    .input-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(42, 93, 160, 0.15);
+    }
+
+    textarea.input-control {
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    .rpe-slider-container {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px 15px;
+    }
+
+    .rpe-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .rpe-display-val {
+      font-family: 'Lora', serif;
+      font-weight: 800;
+      color: var(--navy);
+      font-size: 1rem;
+    }
+
+    .rpe-slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 5px;
+      border-radius: 3px;
+      background: var(--border-color);
+      outline: none;
+    }
+
+    .rpe-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+      transition: var(--transition);
+      border: 2px solid #fff;
+      box-shadow: 0 1px 4px rgba(27,58,107,0.25);
+    }
+
+    .rpe-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    .series-builder {
+      border: 1px dashed rgba(27, 58, 107, 0.2);
+      border-radius: 10px;
+      padding: 15px;
+      background-color: rgba(27, 58, 107, 0.02);
+    }
+
+    .series-builder-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .series-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .serie-item {
+      background-color: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+      position: relative;
+      animation: fadeIn 0.2s ease-out;
+      box-shadow: 0 1px 4px rgba(27,58,107,0.06);
+    }
+
+    .serie-item-work {
+      border-left: 4px solid var(--primary);
+      background-color: var(--work-bg);
+    }
+
+    .serie-item-rest {
+      border-left: 4px solid var(--rest-color);
+      background-color: var(--rest-bg);
+    }
+
+    .serie-row-hdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .serie-grid-params {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      background: rgba(27, 58, 107, 0.04);
+      padding: 8px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+
+    .step-row {
+      display: grid;
+      grid-template-columns: 45px 1.5fr 1fr 1.2fr 28px;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .btn-remove-item {
+      color: #ef4444;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 28px;
+      width: 28px;
+      border-radius: 4px;
+      transition: var(--transition);
+    }
+
+    .btn-remove-item:hover {
+      background-color: rgba(239, 68, 68, 0.15);
+    }
+
+    .workout-calc-results {
+      display: flex;
+      justify-content: space-around;
+      background-color: rgba(27, 58, 107, 0.05);
+      border: 1px solid rgba(27, 58, 107, 0.12);
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 10px;
+    }
+
+    .calc-stat {
+      text-align: center;
+    }
+
+    .calc-stat .val {
+      display: block;
+      font-family: 'Lora', serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .calc-stat .lbl {
+      font-size: 0.58rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    /* Cards in list */
+    .card-list-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .workout-card {
+      background-color: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 15px;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(27,58,107,0.06);
+    }
+
+    .workout-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(27, 58, 107, 0.2);
+      box-shadow: 0 6px 16px rgba(27,58,107,0.12);
+    }
+
+    .workout-card.editing {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(42, 93, 160, 0.2);
+    }
+
+    .workout-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background-color: var(--primary);
+    }
+
+    .workout-card.terrain-piste::before { background-color: var(--secondary); }
+    .workout-card.terrain-trail::before { background-color: var(--accent); }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 6px;
+    }
+
+    .card-id-title {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      max-width: 80%;
+    }
+
+    .card-id {
+      font-family: 'Lora', serif;
+      font-size: 0.62rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .card-title {
+      font-family: 'Lora', serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--navy);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.58rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .tag-category {
+      background: rgba(42, 93, 160, 0.1);
+      color: var(--primary);
+    }
+    .tag-terrain {
+      background: rgba(27, 58, 107, 0.07);
+      color: var(--navy);
+    }
+
+    .card-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      border-top: 1px solid var(--border-color);
+      padding-top: 8px;
+      color: var(--text-muted);
+    }
+
+    .card-stats span strong {
+      color: var(--navy);
+    }
+
+    .card-actions {
+      position: absolute;
+      bottom: 12px;
+      right: 15px;
+      display: none;
+      gap: 6px;
+    }
+
+    .workout-card:hover .card-actions {
+      display: flex;
+    }
+
+    /* File Import Alert Banner */
+    .import-banner {
+      background: linear-gradient(90deg, rgba(42, 93, 160, 0.06) 0%, rgba(123, 195, 229, 0.08) 100%);
+      border: 1px solid rgba(42, 93, 160, 0.15);
+      border-radius: 8px;
+      padding: 12px 15px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .import-banner-text {
+      font-size: 0.8rem;
+    }
+
+    .import-banner-text strong {
+      color: var(--navy);
+    }
+
+    .import-input-hidden {
+      display: none;
+    }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(27, 58, 107, 0.15);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(27, 58, 107, 0.3);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background-color: var(--navy);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-family: 'Lora', serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      z-index: 1000;
+      box-shadow: 0 8px 20px rgba(27, 58, 107, 0.35);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-logo-title">
+      <h1>AB Running</h1>
+      <span>Créateur de Séances</span>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-secondary" onclick="resetForm(); checkNextFreeId();">➕ Nouvelle séance</button>
+      <button class="btn btn-secondary" onclick="exportDataJS()" title="Exporter en format _seancesData_new.js pour remplacer le fichier local">💾 Exporter JS</button>
+      <button class="btn btn-secondary" onclick="exportDataJSON()" title="Exporter en format JSON brut pour ab_running_workouts.json">💾 Exporter JSON</button>
+      <button class="btn btn-primary" onclick="saveToFileHTML()" title="Enregistre la base de données directement dans ce fichier HTML d'origine" style="background:#7BC3E5; border-color:#7BC3E5; color:#1B3A6B; font-weight:700;">🚀 Enregistrer dans le HTML</button>
+    </div>
+  </header>
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3>Recherche</h3>
+        <input type="text" id="searchInput" class="search-input" placeholder="Titre, ID, description..." oninput="filterWorkouts()">
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Filtres</h3>
+        <select id="filterCategory" class="filter-select" onchange="filterWorkouts()">
+          <option value="">Toutes les catégories</option>
+          <option>VMA Courte</option>
+          <option>VMA Longue</option>
+          <option>Seuil</option>
+          <option>Allure Marathon</option>
+          <option>Allure Spécifique</option>
+          <option>Côtes</option>
+          <option>Puissance Montée</option>
+          <option>Technique Descente</option>
+          <option>Spécificité Trail</option>
+          <option>Volume Endurance</option>
+          <option>Sortie Longue</option>
+          <option>Récupération</option>
+          <option>Mixte</option>
+          <option>Activation</option>
+        </select>
+
+        <select id="filterTerrain" class="filter-select" onchange="filterWorkouts()">
+          <option value="">Tous les terrains</option>
+          <option value="Route">Route</option>
+          <option value="Piste">Piste</option>
+          <option value="Trail">Trail</option>
+        </select>
+      </div>
+
+      <div class="sidebar-section" style="margin-top: auto;">
+        <h3>Statistiques</h3>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="value" id="statCount">0</div>
+            <div class="label">Séances</div>
+          </div>
+          <div class="stat-card">
+            <div class="value" id="statAvgRPE">0</div>
+            <div class="label">RPE Moyen</div>
+          </div>
+          <div class="stat-card">
+            <div class="value" id="statAvgDur">0 min</div>
+            <div class="label">Durée Moy.</div>
+          </div>
+          <div class="stat-card">
+            <div class="value" id="statMaxUA">0</div>
+            <div class="label">Charge Max</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-workspace">
+      <!-- Section Formulaire -->
+      <section class="editor-pane">
+        <!-- Import Banner -->
+        <div class="import-banner" id="importBanner">
+          <div class="import-banner-text">
+            <strong>💡 Base incomplète ?</strong> Importez votre base de données complète <code>ab_running_workouts.json</code> pour y intégrer toutes les séances.
+          </div>
+          <button class="btn btn-secondary-light btn-sm" onclick="triggerFileInput()">Charger JSON</button>
+          <input type="file" id="fileInput" class="import-input-hidden" accept=".json" onchange="importDataFromFile(event)">
+        </div>
+
+        <div class="section-title">
+          <span id="editorTitle">➕ Créer une séance</span>
+          <button class="btn btn-secondary-light btn-sm" id="btnCancelEdit" style="display:none;" onclick="resetForm()">Annuler</button>
+        </div>
+
+        <form id="workoutForm" onsubmit="event.preventDefault(); submitWorkout();" style="display:flex; flex-direction:column; gap:12px;">
+          <div class="form-row-3">
+            <div class="form-group">
+              <label for="workoutId">Identifiant</label>
+              <input type="text" id="workoutId" class="input-control" placeholder="ex: S208" required>
+            </div>
+            <div class="form-group">
+              <label for="workoutCategory">Catégorie</label>
+              <select id="workoutCategory" class="input-control">
+                <option>VMA Courte</option>
+                <option>VMA Longue</option>
+                <option>Seuil</option>
+                <option>Allure Marathon</option>
+                <option>Allure Spécifique</option>
+                <option>Côtes</option>
+                <option>Puissance Montée</option>
+                <option>Technique Descente</option>
+                <option>Spécificité Trail</option>
+                <option>Volume Endurance</option>
+                <option>Sortie Longue</option>
+                <option>Récupération</option>
+                <option>Mixte</option>
+                <option>Activation</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="workoutTerrain">Terrain</label>
+              <select id="workoutTerrain" class="input-control">
+                <option value="Route">Route</option>
+                <option value="Piste">Piste</option>
+                <option value="Trail">Trail</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="workoutTitle">Titre de la séance</label>
+            <input type="text" id="workoutTitle" class="input-control" placeholder="ex: 2x(8x30/30) R3'" required>
+          </div>
+
+          <div class="form-group">
+            <label for="workoutDescription">Description générale</label>
+            <textarea id="workoutDescription" class="input-control" placeholder="Consignes, conseils, objectifs de l'entraînement..."></textarea>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="workoutHalage">Description Halage (optionnel)</label>
+              <textarea id="workoutHalage" class="input-control" placeholder="Description adaptée pour le halage..."></textarea>
+            </div>
+            <div class="form-group">
+              <label for="workoutPiste">Description Piste (optionnel)</label>
+              <textarea id="workoutPiste" class="input-control" placeholder="Description adaptée pour la piste..."></textarea>
+            </div>
+          </div>
+
+          <div class="form-row-3" style="background: rgba(27, 58, 107, 0.03); padding: 10px; border-radius: 8px; border: 1px solid var(--border-color);">
+            <div class="form-group">
+              <label for="workoutWarmup">Échauffement (sec)</label>
+              <input type="number" id="workoutWarmup" class="input-control" value="1200" min="0" oninput="calculateWorkoutStats()">
+            </div>
+            <div class="form-group">
+              <label for="workoutCooldown">Retour calme (sec)</label>
+              <input type="number" id="workoutCooldown" class="input-control" value="600" min="0" oninput="calculateWorkoutStats()">
+            </div>
+            <div class="form-group">
+              <label for="workoutPace" title="Allure de référence en min/km pour estimer les distances (ex: 4:00/km)">Allure Réf. (min/km)</label>
+              <input type="number" id="workoutPace" class="input-control" value="4.0" step="0.1" min="2" oninput="calculateWorkoutStats()">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="rpe-slider-container">
+              <div class="rpe-header">
+                <label>RPE Global (Intensité de Foster)</label>
+                <span id="rpeDisplayVal" class="rpe-display-val">7</span>
+              </div>
+              <input type="range" id="workoutRPE" class="rpe-slider" min="1" max="10" value="7" oninput="updateRpeLabel(this.value)">
+              <div style="display:flex; justify-content:space-between; font-size:0.65rem; color:var(--text-muted); margin-top:4px;">
+                <span>1 (Très Facile)</span>
+                <span>5 (Moyen)</span>
+                <span>8 (Très Difficile)</span>
+                <span>10 (Maximal)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section Série Builder -->
+          <div class="series-builder">
+            <div class="series-builder-header">
+              <span style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted);">Structure de la séance</span>
+              <div style="display:flex; gap:6px;">
+                <button type="button" class="btn btn-secondary-light btn-sm" onclick="addWorkBlock()">+ Bloc Travail</button>
+                <button type="button" class="btn btn-secondary-light btn-sm" onclick="addRestBlock()">+ Bloc Repos</button>
+              </div>
+            </div>
+            <div class="series-list" id="seriesList">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Résultats de calcul en direct -->
+          <div class="workout-calc-results">
+            <div class="calc-stat">
+              <span class="val" id="calcDuration">30</span>
+              <span class="lbl">Durée (min)</span>
+            </div>
+            <div class="calc-stat">
+              <span class="val" id="calcDistance">5.00</span>
+              <span class="lbl">Distance Est. (km)</span>
+            </div>
+            <div class="calc-stat">
+              <span class="val" id="calcUA">210</span>
+              <span class="lbl">Charge (UA)</span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="btnSubmitForm" style="width:100%; padding:0.8rem; margin-top:5px;">Enregistrer la séance</button>
+        </form>
+      </section>
+
+      <!-- Section Liste -->
+      <section class="list-pane">
+        <div class="section-title">
+          <span>Bibliothèque de Séances (<span id="filteredCount">0</span>)</span>
+        </div>
+        
+        <div class="card-list-container" id="workoutListContainer">
+          <!-- Dynamically populated -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast">Notification</div>
+
+  <!-- Conteneur de données initiales -->
+  <script id="seances-database" type="application/json">
+[
+  {
+    "id_original": "S001",
+    "title": "2×(8×30\"/30\") R3'",
+    "category": "VMA Courte",
+    "terrain": "Route",
+    "description": "Travail de puissance aérobie en double série. Récup trottinée entre reps (NE PAS s'arrêter). Le 3min entre séries permet de maintenir la qualité sur la 2e série. Allure VMA.",
+    "warmupSec": 1200,
+    "cooldownSec": 600,
+    "rpe_foster": 8,
+    "totalDuration": 49,
+    "totalUA": 392,
+    "series": [
+      {
+        "type": "work",
+        "serieReps": 2,
+        "interSerieRest": 180,
+        "innerReps": 8,
+        "steps": [
+          {
+            "stepReps": 1,
+            "value": 30,
+            "unit": "s",
+            "rest": 30
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id_original": "S002",
+    "title": "2×(10×30\"/30\") R3'",
+    "category": "VMA Courte",
+    "terrain": "Route",
+    "description": "Volume intermédiaire 30/30. Double série de 10 répétitions avec 3min de récup entre blocs. Allure VMA. Récup active obligatoire.",
+    "warmupSec": 1200,
+    "cooldownSec": 600,
+    "rpe_foster": 8,
+    "totalDuration": 53,
+    "totalUA": 424,
+    "series": [
+      {
+        "type": "work",
+        "serieReps": 2,
+        "interSerieRest": 180,
+        "innerReps": 10,
+        "steps": [
+          {
+            "stepReps": 1,
+            "value": 30,
+            "unit": "s",
+            "rest": 30
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id_original": "S003",
+    "title": "2×(12×30\"/30\") R3'",
+    "category": "VMA Courte",
+    "terrain": "Route",
+    "description": "Volume élevé 30/30 pour confirmés. 24 répétitions totales. Séance de référence VMA — tenir l'allure identique sur toutes les reps. Allure VMA proche.",
+    "warmupSec": 1200,
+    "cooldownSec": 600,
+    "rpe_foster": 9,
+    "totalDuration": 57,
+    "totalUA": 513,
+    "series": [
+      {
+        "type": "work",
+        "serieReps": 2,
+        "interSerieRest": 180,
+        "innerReps": 12,
+        "steps": [
+          {
+            "stepReps": 1,
+            "value": 30,
+            "unit": "s",
+            "rest": 30
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id_original": "S004",
+    "title": "2×(6×30\"/30\") R1'30\"",
+    "category": "VMA Courte",
+    "terrain": "Route",
+    "description": "Version courte du 30/30 en double série. Récup de seulement 1min30 entre séries — plus exigeant. Idéal quand le temps est limité. Allure Z4-VMA.",
+    "warmupSec": 1200,
+    "cooldownSec": 600,
+    "rpe_foster": 7,
+    "totalDuration": 44,
+    "totalUA": 308,
+    "series": [
+      {
+        "type": "work",
+        "serieReps": 2,
+        "interSerieRest": 90,
+        "innerReps": 6,
+        "steps": [
+          {
+            "stepReps": 1,
+            "value": 30,
+            "unit": "s",
+            "rest": 30
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id_original": "S005",
+    "title": "10×30\"/30\" (simple)",
+    "category": "VMA Courte",
+    "terrain": "Route",
+    "description": "Séance de référence VMA classique. Récup trottinée obligatoire — ne jamais s'arrêter. Allure VMA -10% à VMA. Séance neuromusculaire.",
+    "warmupSec": 1200,
+    "cooldownSec": 600,
+    "rpe_foster": 8,
+    "totalDuration": 40,
+    "totalUA": 320,
+    "series": [
+      {
+        "type": "work",
+        "serieReps": 1,
+        "interSerieRest": 0,
+        "innerReps": 10,
+        "steps": [
+          {
+            "stepReps": 1,
+            "value": 30,
+            "unit": "s",
+            "rest": 30
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id_original": "S006",
+    "title": "15×30\"/30\" (simple)",
+    "category": "VMA Courte",
+    "terrain": "Route",
+    "description": "Volume max en 30/30 pour confirmés. 15 répétitions continues avec récup trottinée. Allure VMA. Séance longue et exigeante.",
+    "warmupSec": 1200,
+    "cooldownSec": 600,
+    "rpe_foster": 9,
+    "totalDuration": 45,
+    "totalUA": 405,
+    "series": [
+      {
+        "type": "work",
+        "serieReps": 1,
+        "interSerieRest": 0,
+        "innerReps": 15,
+        "steps": [
+          {
+            "stepReps": 1,
+            "value": 30,
+            "unit": "s",
+            "rest": 30
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id_original": "S007",
+    "title": "Pyramide Côtes 1'-2'-3'-4'-3'-2'-1'",
+    "category": "Puissance Montée",
+    "terrain": "Trail",
+    "description": "7 montées en pyramide sur pente 12-20%. Effort maximal soutenu en montée, récup = descente trottinée ou marchée de durée identique. La montée vers 4' puis la redescente de la pyramide cumule puissance et résistance neuromusculaire. Garder le même niveau d'effort (non la même vitesse) sur chaque montée. Pente idéale : régulière, sol stable.",
+    "halage": "",
+    "piste": "",
+    "warmupSec": 1200,
+    "cooldownSec": 600,
+    "rpe_foster": 8,
+    "totalDuration": 62,
+    "totalUA": 496,
+    "series": [
+      {
+        "type": "work",
+        "serieReps": 1,
+        "interSerieRest": 0,
+        "innerReps": 1,
+        "steps": [
+          { "stepReps": 1, "value": 1, "unit": "min", "rest": 60 },
+          { "stepReps": 1, "value": 2, "unit": "min", "rest": 120 },
+          { "stepReps": 1, "value": 3, "unit": "min", "rest": 180 },
+          { "stepReps": 1, "value": 4, "unit": "min", "rest": 240 },
+          { "stepReps": 1, "value": 3, "unit": "min", "rest": 180 },
+          { "stepReps": 1, "value": 2, "unit": "min", "rest": 120 },
+          { "stepReps": 1, "value": 1, "unit": "min", "rest": 60 }
+        ]
+      }
+    ]
+  },
+  {
+    "id_original": "S008",
+    "title": "5×4' Côte VMA-Montée R3' Active",
+    "category": "VMA Longue",
+    "terrain": "Trail",
+    "description": "5 répétitions de 4 minutes sur montée régulière (pente 8-15%). Effort à 90-95% FCmax, sensation de VO2max. Récup : descente trottinée 3min pour revenir au départ. La montée augmente le coût métabolique sans choc articulaire — séance très rentable pour progresser en trail et en VMA. Rester droit, cadence élevée, bras actifs.",
+    "halage": "",
+    "piste": "",
+    "warmupSec": 900,
+    "cooldownSec": 600,
+    "rpe_foster": 8,
+    "totalDuration": 60,
+    "totalUA": 480,
+    "series": [
+      {
+        "type": "work",
+        "serieReps": 1,
+        "interSerieRest": 0,
+        "innerReps": 5,
+        "steps": [
+          { "stepReps": 1, "value": 4, "unit": "min", "rest": 180 }
+        ]
+      }
+    ]
+  },
+  {
+    "id_original": "S009",
+    "title": "8×3' Descente Technique R2' Remontée",
+    "category": "Technique Descente",
+    "terrain": "Trail",
+    "description": "8 descentes techniques de 3 minutes sur terrain accidenté (pierres, racines, virages). Remontée active 2min. Travailler : vision loin (anticiper le sol), pose légère avant du pied, bras écartés pour l'équilibre, genou fléchi à l'impact. Augmenter la vitesse uniquement quand la technique est fluide. RPE effort = modéré, RPE concentration = maximal.",
+    "halage": "",
+    "piste": "",
+    "warmupSec": 1200,
+    "cooldownSec": 600,
+    "rpe_foster": 6,
+    "totalDuration": 70,
+    "totalUA": 420,
+    "series": [
+      {
+        "type": "work",
+        "serieReps": 1,
+        "interSerieRest": 0,
+        "innerReps": 8,
+        "steps": [
+          { "stepReps": 1, "value": 3, "unit": "min", "rest": 120 }
+        ]
+      }
+    ]
+  },
+  {
+    "id_original": "S010",
+    "title": "3×(5'+3'+2') Blocs Intégraux Trail R4'",
+    "category": "Spécificité Trail",
+    "terrain": "Trail",
+    "description": "3 blocs complets reproduisant une séquence course trail. Chaque bloc : 5min montée franche (allure marathon trail, RPE 7-8), enchaîné sans pause sur 3min plat rapide (allure seuil, RPE 8), puis 2min descente technique relâchée. Récup 4min footing entre blocs. Développe la gestion des transitions terrain et la capacité à courir vite après la montée.",
+    "halage": "",
+    "piste": "",
+    "warmupSec": 1200,
+    "cooldownSec": 600,
+    "rpe_foster": 7,
+    "totalDuration": 68,
+    "totalUA": 476,
+    "series": [
+      {
+        "type": "work",
+        "serieReps": 3,
+        "interSerieRest": 240,
+        "innerReps": 1,
+        "steps": [
+          { "stepReps": 1, "value": 5, "unit": "min", "rest": 0 },
+          { "stepReps": 1, "value": 3, "unit": "min", "rest": 0 },
+          { "stepReps": 1, "value": 2, "unit": "min", "rest": 0 }
+        ]
+      }
+    ]
+  },
+  {
+    "id_original": "S011",
+    "title": "Sortie Longue Montagne 2h30 + 4×10' Puissance",
+    "category": "Sortie Longue",
+    "terrain": "Trail",
+    "description": "Sortie montagne de ~2h30 avec 4 blocs puissance insérés au cœur. Base en endurance fondamentale (Z2, RPE 4-5). Entre 1h et 2h : 4 blocs de 10min à allure marathon trail (RPE 6-7), récup 2min footing entre blocs. Les 45min d'aller et retour en EA pure. Objectif : progresser sur le D+ total semaine après semaine. Manger et boire toutes les 30-40min.",
+    "halage": "",
+    "piste": "",
+    "warmupSec": 2700,
+    "cooldownSec": 2700,
+    "rpe_foster": 5,
+    "totalDuration": 136,
+    "totalUA": 680,
+    "series": [
+      {
+        "type": "work",
+        "serieReps": 4,
+        "interSerieRest": 120,
+        "innerReps": 1,
+        "steps": [
+          { "stepReps": 1, "value": 10, "unit": "min", "rest": 0 }
+        ]
+      }
+    ]
+  }
+]
+  </script>
+
+  <script>
+    // Variables de base
+    let workoutsList = [];
+    let currentEditingId = null;
+
+    // RPE labels translation
+    const rpeTexts = {
+      1: "Très facile",
+      2: "Facile",
+      3: "Modéré",
+      4: "Un peu dur",
+      5: "Difficile",
+      6: "Assez difficile",
+      7: "Très difficile",
+      8: "Très très difficile",
+      9: "Épuisant",
+      10: "Maximal / Échec"
+    };
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.innerText = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    function updateRpeLabel(val) {
+      document.getElementById('rpeDisplayVal').innerText = val + " (" + rpeTexts[val] + ")";
+      calculateWorkoutStats();
+    }
+
+    function triggerFileInput() {
+      document.getElementById('fileInput').click();
+    }
+
+    function importDataFromFile(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (!Array.isArray(parsed)) {
+            alert("Erreur: Le fichier JSON doit contenir un tableau de séances.");
+            return;
+          }
+          
+          // Validate structure roughly
+          if (parsed.length > 0 && !parsed[0].id_original && !parsed[0].title) {
+            alert("Erreur: Le format du JSON ne semble pas correspondre à ab_running_workouts.json");
+            return;
+          }
+
+          workoutsList = parsed;
+          localStorage.setItem('ab_running_workouts_data', JSON.stringify(workoutsList));
+          
+          sortWorkouts();
+          renderWorkoutsList();
+          resetForm();
+          
+          // Hide import banner once loaded
+          document.getElementById('importBanner').style.display = 'none';
+          showToast(`Importation réussie : ${workoutsList.length} séances chargées !`);
+        } catch(err) {
+          alert("Erreur lors de la lecture du JSON : " + err.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // Charger les séances
+    window.onload = function() {
+      // Tenter de charger depuis localStorage en priorité
+      const localData = localStorage.getItem('ab_running_workouts_data');
+      const embeddedData = document.getElementById('seances-database').textContent;
+      
+      let parsedEmbedded = [];
+      try {
+        parsedEmbedded = JSON.parse(embeddedData.trim() || "[]");
+      } catch(e) {
+        console.error("Erreur lors de la lecture du JSON embarqué", e);
+      }
+
+      if (localData) {
+        try {
+          workoutsList = JSON.parse(localData);
+          if (workoutsList.length > 6) {
+            document.getElementById('importBanner').style.display = 'none';
+          }
+        } catch(e) {
+          workoutsList = parsedEmbedded;
+        }
+      } else {
+        workoutsList = parsedEmbedded;
+      }
+      
+      // Trier par ID
+      sortWorkouts();
+      
+      // Remplir la liste
+      renderWorkoutsList();
+      checkNextFreeId();
+      resetForm();
+    };
+
+    function sortWorkouts() {
+      workoutsList.sort((a, b) => {
+        return (a.id_original || "").localeCompare(b.id_original || "", undefined, {numeric: true, sensitivity: 'base'});
+      });
+    }
+
+    function checkNextFreeId() {
+      if (currentEditingId !== null) return;
+      let maxNum = 0;
+      workoutsList.forEach(w => {
+        const id = w.id_original || "";
+        const num = parseInt(id.replace(/\D/g, ''));
+        if (!isNaN(num) && num > maxNum) {
+          maxNum = num;
+        }
+      });
+      const nextId = "S" + String(maxNum + 1).padStart(3, '0');
+      document.getElementById('workoutId').value = nextId;
+    }
+
+    function renderWorkoutsList() {
+      const container = document.getElementById('workoutListContainer');
+      container.innerHTML = '';
+      
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const catFilter = document.getElementById('filterCategory').value;
+      const terrainFilter = document.getElementById('filterTerrain').value;
+      
+      let filtered = workoutsList.filter(w => {
+        const id = (w.id_original || '').toLowerCase();
+        const title = (w.title || '').toLowerCase();
+        const desc = (w.description || '').toLowerCase();
+        
+        const matchesSearch = id.includes(search) || title.includes(search) || desc.includes(search);
+        const matchesCategory = !catFilter || w.category === catFilter;
+        const matchesTerrain = !terrainFilter || w.terrain === terrainFilter;
+        
+        return matchesSearch && matchesCategory && matchesTerrain;
+      });
+
+      document.getElementById('filteredCount').innerText = filtered.length;
+      document.getElementById('statCount').innerText = workoutsList.length;
+      
+      // Update sidebar stats
+      if (workoutsList.length > 0) {
+        const totalRpe = workoutsList.reduce((acc, curr) => acc + (curr.rpe_foster || 0), 0);
+        const totalDur = workoutsList.reduce((acc, curr) => acc + (curr.totalDuration || 0), 0);
+        const maxUA = workoutsList.reduce((acc, curr) => Math.max(acc, curr.totalUA || 0), 0);
+        
+        document.getElementById('statAvgRPE').innerText = (totalRpe / workoutsList.length).toFixed(1);
+        document.getElementById('statAvgDur').innerText = Math.round(totalDur / workoutsList.length) + " m";
+        document.getElementById('statMaxUA').innerText = maxUA;
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<div style="text-align:center; padding:2rem; color:var(--text-muted);">Aucune séance trouvée</div>';
+        return;
+      }
+
+      filtered.forEach(w => {
+        const card = document.createElement('div');
+        const terrainClass = 'terrain-' + (w.terrain || 'Route').toLowerCase();
+        const activeEditing = currentEditingId === w.id_original ? 'editing' : '';
+        card.className = `workout-card ${terrainClass} ${activeEditing}`;
+        
+        card.innerHTML = `
+          <div class="card-header">
+            <div class="card-id-title">
+              <span class="card-id">${w.id_original}</span>
+              <span class="card-title" title="${w.title}">${w.title}</span>
+            </div>
+            <span class="tag tag-category">${w.category}</span>
+          </div>
+          <div class="card-tags">
+            <span class="tag tag-terrain">📍 ${w.terrain || 'Route'}</span>
+            ${w.series && w.series.length > 0 ? `<span class="tag" style="background:rgba(74,138,90,0.1); color:var(--accent);">⏱️ ${w.series.length} blocs</span>` : ''}
+          </div>
+          <div class="card-desc">${w.description || 'Aucune description'}</div>
+          <div class="card-stats">
+            <span>Durée: <strong>${w.totalDuration || 0} min</strong></span>
+            <span>RPE: <strong>${w.rpe_foster || 0}/10</strong></span>
+            <span>Charge: <strong>${w.totalUA || 0} UA</strong></span>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-secondary-light btn-sm" onclick="event.stopPropagation(); editWorkout('${w.id_original}')">Modifier</button>
+            <button class="btn btn-danger btn-sm" onclick="event.stopPropagation(); deleteWorkout('${w.id_original}')">Supprimer</button>
+          </div>
+        `;
+        
+        card.onclick = () => editWorkout(w.id_original);
+        container.appendChild(card);
+      });
+    }
+
+    function filterWorkouts() {
+      renderWorkoutsList();
+    }
+
+    // Dynamic Series / Repeats Builder
+    function addWorkBlock(data = null) {
+      const list = document.getElementById('seriesList');
+      const id = Date.now() + Math.random().toString(36).substr(2, 5);
+      
+      const reps = data ? data.serieReps : 1;
+      const interRest = data ? data.interSerieRest : 180;
+      const innerReps = data ? data.innerReps : 10;
+      
+      const html = `
+        <div class="serie-item serie-item-work" id="item-${id}" data-type="work">
+          <div class="serie-row-hdr">
+            <span style="color:var(--navy); font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;">🏃 BLOC TRAVAIL (FRACTIONNÉ)</span>
+            <button type="button" class="btn-remove-item" onclick="document.getElementById('item-${id}').remove(); calculateWorkoutStats();">✕</button>
+          </div>
+          <div class="serie-grid-params">
+            <div class="form-group">
+              <label style="font-size:0.6rem">Nb de Blocs</label>
+              <input type="number" class="input-control serieReps" value="${reps}" min="1" oninput="calculateWorkoutStats()">
+            </div>
+            <div class="form-group">
+              <label style="font-size:0.6rem">Repos Inter-Bloc (s)</label>
+              <input type="number" class="input-control interSerieRest" value="${interRest}" min="0" oninput="calculateWorkoutStats()">
+            </div>
+            <div class="form-group">
+              <label style="font-size:0.6rem">Répétitions/Bloc</label>
+              <input type="number" class="input-control innerReps" value="${innerReps}" min="1" oninput="calculateWorkoutStats()">
+            </div>
+          </div>
+          <div class="step-list">
+            <!-- Steps go here -->
+          </div>
+          <button type="button" class="btn btn-secondary-light btn-sm" style="font-size:0.65rem; width:100%; border-style:dashed;" onclick="addStepToBlock('${id}')">+ Ajouter Segment d'Effort</button>
+        </div>
+      `;
+      
+      list.insertAdjacentHTML('beforeend', html);
+      
+      if (data && data.steps) {
+        data.steps.forEach(step => addStepToBlock(id, step));
+      } else {
+        addStepToBlock(id);
+      }
+      calculateWorkoutStats();
+    }
+
+    function addRestBlock(data = null) {
+      const list = document.getElementById('seriesList');
+      const id = Date.now() + Math.random().toString(36).substr(2, 5);
+      const val = data ? data.value : 300;
+      
+      const html = `
+        <div class="serie-item serie-item-rest" id="item-${id}" data-type="rest_block">
+          <div class="serie-row-hdr" style="margin-bottom: 0;">
+            <span style="color:var(--text-muted); font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;">☕ REPOS INTER-BLOCS</span>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <input type="number" class="input-control rest-val" value="${val}" min="0" style="width: 80px; padding: 4px 8px;" oninput="calculateWorkoutStats()">
+              <span style="font-size:0.75rem">sec</span>
+            </div>
+            <button type="button" class="btn-remove-item" onclick="document.getElementById('item-${id}').remove(); calculateWorkoutStats();">✕</button>
+          </div>
+        </div>
+      `;
+      
+      list.insertAdjacentHTML('beforeend', html);
+      calculateWorkoutStats();
+    }
+
+    function addStepToBlock(blockId, stepData = null) {
+      const block = document.getElementById('item-' + blockId);
+      if(!block) return;
+      const stepList = block.querySelector('.step-list');
+      
+      const sReps = stepData ? stepData.stepReps : 1;
+      const val = stepData ? stepData.value : 30;
+      const unit = stepData ? stepData.unit : "s";
+      const rest = stepData ? stepData.rest : 30;
+      
+      const id = Date.now() + Math.random().toString(36).substr(2, 5);
+      
+      const stepHtml = `
+        <div class="step-row" id="step-${id}">
+          <input type="number" class="input-control step-reps" value="${sReps}" min="1" placeholder="x" style="padding:4px 6px; text-align:center;" oninput="calculateWorkoutStats()">
+          <input type="number" class="input-control step-val" value="${val}" min="1" placeholder="Val" style="padding:4px 6px;" oninput="calculateWorkoutStats()">
+          <select class="input-control step-unit" style="padding:4px 6px;" onchange="calculateWorkoutStats()">
+            <option value="s" ${unit==='s'?'selected':''}>sec (")</option>
+            <option value="min" ${unit==='min'?'selected':''}>min (')</option>
+            <option value="m" ${unit==='m'?'selected':''}>m</option>
+            <option value="km" ${unit==='km'?'selected':''}>km</option>
+          </select>
+          <input type="number" class="input-control step-rest" value="${rest}" min="0" placeholder="Réc" style="padding:4px 6px;" oninput="calculateWorkoutStats()">
+          <button type="button" class="btn-remove-item" style="color:#f87171" onclick="document.getElementById('step-${id}').remove(); calculateWorkoutStats();">✕</button>
+        </div>
+      `;
+      
+      stepList.insertAdjacentHTML('beforeend', stepHtml);
+      calculateWorkoutStats();
+    }
+
+    // Dynamic calculations
+    function calculateWorkoutStats() {
+      const paceMinKm = parseFloat(document.getElementById('workoutPace').value) || 4.0;
+      // Convert pace to m/s. 4:00/km -> 1000m / 240s = 4.166 m/s.
+      const speedMs = 1000 / (paceMinKm * 60);
+      // Warmup pace is typically slower, say 6:00/km (2.77 m/s)
+      const warmupSpeedMs = 1000 / (6 * 60); 
+
+      let warmupSec = parseInt(document.getElementById('workoutWarmup').value) || 0;
+      let cooldownSec = parseInt(document.getElementById('workoutCooldown').value) || 0;
+      let rpe = parseInt(document.getElementById('workoutRPE').value) || 7;
+      
+      let totalSec = warmupSec + cooldownSec;
+      let totalMeters = (warmupSec + cooldownSec) * warmupSpeedMs;
+
+      const seriesItems = document.querySelectorAll('#seriesList .serie-item');
+      
+      seriesItems.forEach(item => {
+        const type = item.getAttribute('data-type');
+        
+        if (type === 'work') {
+          const sReps = parseFloat(item.querySelector('.serieReps').value) || 1;
+          const iReps = parseFloat(item.querySelector('.innerReps').value) || 1;
+          const sRest = parseFloat(item.querySelector('.interSerieRest').value) || 0;
+          
+          let blockSec = 0;
+          let blockMeters = 0;
+          
+          const stepRows = item.querySelectorAll('.step-row');
+          stepRows.forEach(row => {
+            const stepRep = parseFloat(row.querySelector('.step-reps').value) || 1;
+            const val = parseFloat(row.querySelector('.step-val').value) || 0;
+            const unit = row.querySelector('.step-unit').value;
+            const rest = parseFloat(row.querySelector('.step-rest').value) || 0;
+            
+            let sec = 0;
+            let m = 0;
+            
+            if (unit === 's') {
+              sec = val;
+              m = val * speedMs;
+            } else if (unit === 'min') {
+              sec = val * 60;
+              m = val * 60 * speedMs;
+            } else if (unit === 'm') {
+              sec = val / speedMs;
+              m = val;
+            } else if (unit === 'km') {
+              sec = (val * 1000) / speedMs;
+              m = val * 1000;
+            }
+            
+            blockSec += (sec + rest) * stepRep;
+            blockMeters += m * stepRep;
+          });
+          
+          // Add this block to totals
+          totalSec += (blockSec * iReps * sReps) + (sRest * (sReps - 1));
+          totalMeters += blockMeters * iReps * sReps;
+          
+        } else if (type === 'rest_block') {
+          const restVal = parseFloat(item.querySelector('.rest-val').value) || 0;
+          totalSec += restVal;
+        }
+      });
+      
+      const totalDurMin = totalSec / 60;
+      
+      document.getElementById('calcDuration').innerText = Math.round(totalDurMin);
+      document.getElementById('calcDistance').innerText = (totalMeters / 1000).toFixed(2);
+      document.getElementById('calcUA').innerText = Math.round(totalDurMin * rpe);
+    }
+
+    // Load workout into form for editing
+    function editWorkout(id) {
+      currentEditingId = id;
+      const w = workoutsList.find(item => item.id_original === id);
+      if(!w) return;
+      
+      document.getElementById('editorTitle').innerText = "📝 Modifier la séance " + id;
+      document.getElementById('btnCancelEdit').style.display = "inline-flex";
+      
+      document.getElementById('workoutId').value = w.id_original;
+      document.getElementById('workoutId').disabled = true;
+      document.getElementById('workoutTitle').value = w.title || '';
+      document.getElementById('workoutCategory').value = w.category || 'VMA Courte';
+      document.getElementById('workoutTerrain').value = w.terrain || 'Route';
+      document.getElementById('workoutDescription').value = w.description || '';
+      document.getElementById('workoutHalage').value = w.halage || '';
+      document.getElementById('workoutPiste').value = w.piste || '';
+      document.getElementById('workoutWarmup').value = w.warmupSec !== undefined ? w.warmupSec : 1200;
+      document.getElementById('workoutCooldown').value = w.cooldownSec !== undefined ? w.cooldownSec : 600;
+      document.getElementById('workoutRPE').value = w.rpe_foster || 7;
+      
+      updateRpeLabel(w.rpe_foster || 7);
+      
+      // Clean and populate series
+      const list = document.getElementById('seriesList');
+      list.innerHTML = '';
+      
+      if (w.series && Array.isArray(w.series)) {
+        w.series.forEach(item => {
+          if (item.type === 'work') {
+            addWorkBlock(item);
+          } else {
+            addRestBlock(item);
+          }
+        });
+      }
+      
+      calculateWorkoutStats();
+      
+      // Highlight active editing in the list
+      document.querySelectorAll('.workout-card').forEach(card => {
+        card.classList.remove('editing');
+      });
+      renderWorkoutsList();
+    }
+
+    // Reset Form
+    function resetForm() {
+      currentEditingId = null;
+      document.getElementById('editorTitle').innerText = "➕ Créer une séance";
+      document.getElementById('btnCancelEdit').style.display = "none";
+      document.getElementById('workoutId').disabled = false;
+      document.getElementById('workoutForm').reset();
+      document.getElementById('seriesList').innerHTML = '';
+      
+      updateRpeLabel(7);
+      checkNextFreeId();
+      calculateWorkoutStats();
+      
+      document.querySelectorAll('.workout-card').forEach(card => {
+        card.classList.remove('editing');
+      });
+    }
+
+    // Submit Workout Form (Save locally to array)
+    function submitWorkout() {
+      const id = document.getElementById('workoutId').value.trim();
+      const title = document.getElementById('workoutTitle').value.trim();
+      if(!id || !title) {
+        alert("L'identifiant et le titre sont obligatoires !");
+        return;
+      }
+      
+      // Build series array
+      const series = [];
+      const items = document.querySelectorAll('#seriesList .serie-item');
+      
+      items.forEach(item => {
+        const type = item.getAttribute('data-type');
+        
+        if (type === 'work') {
+          const steps = [];
+          const stepRows = item.querySelectorAll('.step-row');
+          
+          stepRows.forEach(row => {
+            steps.push({
+              stepReps: parseInt(row.querySelector('.step-reps').value) || 1,
+              value: parseFloat(row.querySelector('.step-val').value) || 0,
+              unit: row.querySelector('.step-unit').value,
+              rest: parseInt(row.querySelector('.step-rest').value) || 0
+            });
+          });
+          
+          series.push({
+            type: "work",
+            serieReps: parseInt(item.querySelector('.serieReps').value) || 1,
+            interSerieRest: parseInt(item.querySelector('.interSerieRest').value) || 0,
+            innerReps: parseInt(item.querySelector('.innerReps').value) || 1,
+            steps: steps
+          });
+        } else if (type === 'rest_block') {
+          series.push({
+            type: "rest_block",
+            value: parseInt(item.querySelector('.rest-val').value) || 0
+          });
+        }
+      });
+      
+      const warmup = parseInt(document.getElementById('workoutWarmup').value) || 0;
+      const cooldown = parseInt(document.getElementById('workoutCooldown').value) || 0;
+      const rpe = parseInt(document.getElementById('workoutRPE').value) || 7;
+      
+      const totalDuration = parseInt(document.getElementById('calcDuration').innerText) || 30;
+      const totalUA = parseInt(document.getElementById('calcUA').innerText) || 210;
+      
+      const workoutData = {
+        id_original: id,
+        title: title,
+        category: document.getElementById('workoutCategory').value,
+        terrain: document.getElementById('workoutTerrain').value,
+        description: document.getElementById('workoutDescription').value.trim(),
+        halage: document.getElementById('workoutHalage').value.trim(),
+        piste: document.getElementById('workoutPiste').value.trim(),
+        warmupSec: warmup,
+        cooldownSec: cooldown,
+        rpe_foster: rpe,
+        totalDuration: totalDuration,
+        totalUA: totalUA,
+        series: series
+      };
+      
+      const existingIdx = workoutsList.findIndex(item => item.id_original === id);
+      if (existingIdx !== -1) {
+        // Update
+        workoutsList[existingIdx] = workoutData;
+        showToast("Séance " + id + " mise à jour dans le cache local !");
+      } else {
+        // Create
+        workoutsList.push(workoutData);
+        showToast("Séance " + id + " ajoutée dans le cache local !");
+      }
+      
+      // Save to localStorage
+      localStorage.setItem('ab_running_workouts_data', JSON.stringify(workoutsList));
+      
+      sortWorkouts();
+      renderWorkoutsList();
+      resetForm();
+    }
+
+    // Delete workout
+    function deleteWorkout(id) {
+      if (confirm("Voulez-vous vraiment supprimer la séance " + id + " ?")) {
+        workoutsList = workoutsList.filter(item => item.id_original !== id);
+        localStorage.setItem('ab_running_workouts_data', JSON.stringify(workoutsList));
+        showToast("Séance " + id + " supprimée du cache local !");
+        
+        if (currentEditingId === id) {
+          resetForm();
+        }
+        
+        renderWorkoutsList();
+      }
+    }
+
+    // EXPORTS & PERSISTENCE IN FILE
+    
+    // Save directly inside this HTML file
+    function saveToFileHTML() {
+      // Clean localStorage because it matches the new file state
+      localStorage.setItem('ab_running_workouts_data', JSON.stringify(workoutsList));
+      
+      // Get current HTML
+      const html = document.documentElement.outerHTML;
+      
+      // Prepare updated script tag content
+      const dbScriptStart = '<script id="seances-database" type="application/json">';
+      const dbScriptEnd = '<\/script>';
+      
+      // Replace the json data inside the script tag using regex
+      const jsonContent = "\n" + JSON.stringify(workoutsList, null, 2) + "\n  ";
+      const regex = /<script id="seances-database" type="application\/json">[\s\S]*?<\/script>/;
+      const newScriptTag = dbScriptStart + jsonContent + dbScriptEnd;
+      
+      const updatedHtml = '<!DOCTYPE html>\n' + html.replace(regex, newScriptTag);
+      
+      // Download blob
+      const blob = new Blob([updatedHtml], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'index.html'; // Default name, overwrite in folder
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
+      alert("Fichier HTML mis à jour prêt au téléchargement.\n\nIMPORTANT : Veuillez enregistrer ce fichier dans le dossier 'createur-seances' sous le nom 'index.html' pour écraser le fichier actuel.");
+    }
+
+    // Export raw JSON (for ab_running_workouts.json)
+    function exportDataJSON() {
+      const formattedList = workoutsList.map(w => {
+        return {
+          id_original: w.id_original,
+          title: w.title,
+          category: w.category,
+          terrain: w.terrain,
+          description: w.description || "",
+          warmupSec: w.warmupSec,
+          cooldownSec: w.cooldownSec,
+          rpe_foster: w.rpe_foster,
+          totalDuration: w.totalDuration,
+          totalUA: w.totalUA,
+          series: w.series || []
+        };
+      });
+      
+      const blob = new Blob([JSON.stringify(formattedList, null, 2)], { type: 'application/json;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'ab_running_workouts.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Export JS (for _seancesData_new.js)
+    function exportDataJS() {
+      const exportedObj = {};
+      
+      workoutsList.forEach(w => {
+        let halageTxt = w.halage || w.title || '';
+        let pisteTxt = w.piste || w.title || '';
+        
+        exportedObj[w.id_original] = {
+          l: w.title || '',
+          c: w.category || '',
+          rpe: String(w.rpe_foster || 7),
+          rn: w.rpe_foster || 7,
+          ua: w.totalUA || 0,
+          lieu: (w.terrain || 'Route').toLowerCase(),
+          halage: halageTxt,
+          piste: pisteTxt,
+          desc: w.description || ''
+        };
+      });
+      
+      const jsContent = `// MAJ ${new Date().toLocaleDateString('fr-FR')}\n// seances-default : assignation sans déclaration, data.js déclare déjà seancesData\nseancesData = ` + JSON.stringify(exportedObj, null, 2) + `;\n`;
+      
+      const blob = new Blob([jsContent], { type: 'application/javascript;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = '_seancesData_new.js';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>

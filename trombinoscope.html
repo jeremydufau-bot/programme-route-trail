@@ -1,0 +1,260 @@
+<!-- MAJ 31/05/26 -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programme Route/Trail — Trombinoscope</title>
+<meta name="description" content="Découvrez les membres du groupe d'entraînement Route/Trail. Notre trombinoscope regroupe tous les coureurs pour la saison 2026-2027.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Barre de recherche style light */
+  .search-container {
+    margin-bottom: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.8rem 1.2rem;
+    box-shadow: 0 2px 8px rgba(30,30,30,.04);
+  }
+  
+  .search-input {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    color: var(--text);
+    font-family: 'Lora', serif;
+    font-size: 0.9rem;
+    flex: 1;
+    min-width: 200px;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  
+  .search-input:focus {
+    border-color: var(--blue);
+    background: var(--surface);
+    box-shadow: 0 0 10px rgba(46, 125, 50, 0.15);
+  }
+
+  .members-count {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  /* Trombi grid */
+  .trombi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  /* Member card design - Light surface theme */
+  .member-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: box-shadow .15s, transform .15s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.8rem;
+  }
+  
+  .member-card:hover {
+    box-shadow: 0 6px 20px rgba(30,30,30,.12);
+    transform: translateY(-2px);
+  }
+  
+  .photo-container {
+    width: 100%;
+    aspect-ratio: 3/4;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    position: relative;
+  }
+  
+  .member-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  
+  .member-card:hover .member-photo {
+    transform: scale(1.03);
+  }
+  
+  .photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface2);
+    color: var(--border);
+    font-size: 2.5rem;
+  }
+
+  .member-name {
+    margin-top: 0.8rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--navy);
+    text-align: center;
+  }
+
+  /* État vide */
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--muted);
+  }
+  .empty-state .icon { font-size: 2.5rem; margin-bottom: .5rem; }
+  .empty-state p { font-size: .88rem; }
+
+  @media (max-width: 600px) {
+    .trombi-grid {
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 1.2rem 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="logo_rt.svg" alt="Route/Trail" class="logo">
+  <span class="site-name">Programme Route/Trail</span>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="programme.html">Programme</a>
+    <!-- <a href="philosophie.html">Méthode</a> -->
+    <!-- <a href="renforcement.html">Renforcement</a> -->
+    <!-- <a href="routines.html">Routines Matin</a> -->
+    <!-- <a href="proposer.html">Proposer</a> -->
+    <!-- <a href="boutique.html">🛍️ Boutique</a> -->
+    <a class="active" href="trombinoscope.html">👥 Trombi</a>
+    <a href="admin.html" class="nav-coach">Entraîneur</a>
+  </nav>
+</header>
+
+<div class="page">
+  <div class="sec-eye">Groupe d'entraînement</div>
+  <h1 class="sec-title" id="trombi-title">Trombinoscope <em>du groupe</em></h1>
+  <p class="sec-intro">
+    Retrouvez ici tous les coureurs et passionnés de course à pied du programme Route/Trail pour la saison 2026-2027.
+  </p>
+
+  <!-- Barre de recherche -->
+  <div class="search-container">
+    <input type="search" class="search-input" id="search-input" placeholder="Rechercher un membre par prénom ou nom..." oninput="filterMembers()">
+    <span class="members-count" id="members-count">Chargement...</span>
+  </div>
+
+  <!-- Grille du trombinoscope -->
+  <div class="trombi-grid" id="trombiGrid"></div>
+</div>
+
+<!-- Firebase SDK (compat) -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="firebase.js"></script>
+
+<script>
+  let members = [];
+
+  // Init
+  window.onload = async function() {
+    try {
+      members = await fbLoadTrombinoscope();
+    } catch(e) {
+      console.error("Erreur de chargement du trombinoscope Firestore :", e);
+    }
+    render();
+  };
+
+  function getDirectDriveUrl(url) {
+    if (!url) return '';
+    url = url.trim();
+    const reg1 = /\/file\/d\/([a-zA-Z0-9_-]+)/;
+    const reg2 = /[?&]id=([a-zA-Z0-9_-]+)/;
+    const reg3 = /drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/;
+    
+    const match = url.match(reg1) || url.match(reg2) || url.match(reg3);
+    if (match && match[1]) {
+      const fileId = match[1];
+      return `https://drive.google.com/uc?export=view&id=${fileId}`;
+    }
+    return url;
+  }
+
+  // Render list
+  function render(filteredList) {
+    const listToRender = filteredList || members;
+    const grid = document.getElementById('trombiGrid');
+    const countEl = document.getElementById('members-count');
+    
+    grid.innerHTML = '';
+    
+    // Update count text
+    const total = listToRender.length;
+    countEl.textContent = `${total} membre${total > 1 ? 's' : ''}`;
+    
+    if (total === 0) {
+      grid.innerHTML = `
+        <div class="empty-state">
+          <div class="icon">👥</div>
+          <p>Aucun membre ne correspond à votre recherche.</p>
+        </div>`;
+      return;
+    }
+    
+    listToRender.forEach(m => {
+      const resolvedPhoto = getDirectDriveUrl(m.photo);
+      const photoHtml = resolvedPhoto
+        ? `<img src="${resolvedPhoto}" alt="${m.name}" class="member-photo" onerror="this.outerHTML='<div class=\\'photo-placeholder\\'>👤</div>'">`
+        : `<div class="photo-placeholder">👤</div>`;
+        
+      const card = document.createElement('div');
+      card.className = 'member-card';
+      card.innerHTML = `
+        <div class="photo-container">
+          ${photoHtml}
+        </div>
+        <div class="member-name">${m.name || ''}</div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  // Filter list
+  function filterMembers() {
+    const query = document.getElementById('search-input').value.toLowerCase().trim();
+    if (!query) {
+      render(members);
+      return;
+    }
+    
+    const filtered = members.filter(m => (m.name || '').toLowerCase().includes(query));
+    render(filtered);
+  }
+</script>
+</body>
+</html>

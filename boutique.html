@@ -1,0 +1,290 @@
+<!-- MAJ 31/05/26 -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programme Route/Trail — Boutique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .boutique-intro { max-width: 620px; margin-bottom: 2rem; }
+
+  /* Grille produits */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .product-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: box-shadow .15s, transform .15s;
+    position: relative;
+  }
+  .product-card:hover {
+    box-shadow: 0 6px 20px rgba(30,30,30,.12);
+    transform: translateY(-2px);
+  }
+
+  .product-photo {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    background: var(--surface2);
+    display: block;
+  }
+  .product-photo-placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: var(--surface2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: var(--border);
+  }
+
+  .product-body {
+    padding: 1rem;
+  }
+  .product-name {
+    font-size: .95rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: .35rem;
+  }
+  .product-desc {
+    font-size: .78rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: .75rem;
+  }
+  .product-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .75rem 1rem;
+    border-top: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  .product-price {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--navy);
+  }
+  .btn-order {
+    font-family: 'Lora', serif;
+    font-size: .68rem;
+    font-weight: 700;
+    padding: .35rem .8rem;
+    border-radius: 7px;
+    border: 1px solid var(--blue);
+    color: var(--blue);
+    background: transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transition: .12s;
+    display: inline-block;
+  }
+  .btn-order:hover {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  /* Bouton supprimer sur carte */
+  .btn-delete-card {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255,255,255,.9);
+    border: 1px solid rgba(192,64,64,.25);
+    color: var(--rouge);
+    border-radius: 6px;
+    font-size: .65rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    cursor: pointer;
+    display: none;
+    transition: .12s;
+    font-family: 'Lora', serif;
+  }
+  .product-card:hover .btn-delete-card { display: block; }
+  .btn-delete-card:hover { background: var(--rouge); color: #fff; }
+
+  /* État vide */
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--muted);
+  }
+  .empty-state .icon { font-size: 2.5rem; margin-bottom: .5rem; }
+  .empty-state p { font-size: .88rem; }
+
+
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--navy);
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-family: 'Lora', serif;
+    font-size: .82rem;
+    font-weight: 600;
+    z-index: 1000;
+    box-shadow: 0 8px 20px rgba(30,30,30,.3);
+    transition: transform .3s cubic-bezier(.175,.885,.32,1.275);
+    pointer-events: none;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 600px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .products-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+  }
+  @media (max-width: 400px) {
+    .products-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="logo_rt.svg" alt="Route/Trail" class="logo">
+  <span class="site-name">Programme Route/Trail</span>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="programme.html">Programme</a>
+    <!-- <a href="philosophie.html">Méthode</a> -->
+    <!-- <a href="renforcement.html">Renforcement</a> -->
+    <!-- <a href="routines.html">Routines Matin</a> -->
+    <!-- <a href="proposer.html">Proposer</a> -->
+    <!-- <a class="active" href="boutique.html">🛍️ Boutique</a> -->
+    <a href="trombinoscope.html">👥 Trombi</a>
+    <a href="admin.html" class="nav-coach">Entraîneur</a>
+  </nav>
+</header>
+
+<div class="page">
+  <div class="sec-eye">Groupe d'entraînement</div>
+  <div class="sec-title">Boutique <em>du groupe</em></div>
+  <p class="sec-intro boutique-intro">
+    Retrouvez ici les articles disponibles au sein du club. Les commandes se font directement par e-mail — cliquez sur "Commander" pour ouvrir votre messagerie.
+  </p>
+
+  <!-- Bouton Formulaire de Commande (haut) -->
+  <div id="btq-order-btn-container" style="margin-bottom: 2rem; display: none;">
+    <a id="btq-order-btn" href="#" target="_blank" class="btn-order" style="background: var(--blue); color: #fff; font-size: .8rem; padding: .55rem 1.2rem;">
+      📋 Accéder au formulaire de commande
+    </a>
+  </div>
+
+  <!-- Grille produits -->
+  <div class="products-grid" id="productsGrid"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+<!-- Firebase SDK (compat) -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="firebase.js"></script>
+
+<script>
+  const MAIL = 'contact@ab-running.fr';
+  let articles = [];
+  let orderLink = '';
+
+  // ── Init ──────────────────────────────────────────
+  window.onload = async function () {
+    try {
+      const data = await fbLoadBoutique();
+      articles = data.articles || [];
+      orderLink = data.orderLink || '';
+    } catch(e) {
+      console.error('Erreur chargement Boutique Firestore :', e);
+    }
+    render();
+  };
+
+  // ── Rendu ─────────────────────────────────────────
+  function render() {
+    const grid = document.getElementById('productsGrid');
+    grid.innerHTML = '';
+
+    // Gérer le bouton formulaire en haut
+    const btnContainer = document.getElementById('btq-order-btn-container');
+    const btn = document.getElementById('btq-order-btn');
+    if (orderLink && orderLink.trim() !== '') {
+      btn.href = orderLink.trim();
+      btnContainer.style.display = 'block';
+    } else {
+      btnContainer.style.display = 'none';
+    }
+
+    if (articles.length === 0) {
+      grid.innerHTML = `
+        <div class="empty-state">
+          <div class="icon">🛍️</div>
+          <p>Aucun article pour l'instant.</p>
+        </div>`;
+      return;
+    }
+
+    articles.forEach((art, idx) => {
+      const photoHtml = art.photo
+        ? `<img src="${art.photo}" alt="${art.name}" class="product-photo" onerror="this.outerHTML='<div class=\\'product-photo-placeholder\\'>🛍️</div>'">`
+        : `<div class="product-photo-placeholder">🛍️</div>`;
+
+      const priceStr = parseFloat(art.price).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+      
+      // Lien commander : soit orderLink soit mailto
+      let cmdHref = '';
+      let cmdTarget = '';
+      if (orderLink && orderLink.trim() !== '') {
+        cmdHref = orderLink.trim();
+        cmdTarget = ' target="_blank"';
+      } else {
+        const subject = encodeURIComponent('Commande — ' + art.name);
+        const body = encodeURIComponent('Bonjour,\n\nJe souhaite commander l\'article suivant :\n\n' + art.name + ' — ' + priceStr + '\n\nMerci de me recontacter pour confirmer la commande.\n\nCordialement,');
+        cmdHref = `mailto:${MAIL}?subject=${subject}&body=${body}`;
+      }
+
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.innerHTML = `
+        ${photoHtml}
+        <div class="product-body">
+          <div class="product-name">${art.name}</div>
+          ${art.desc ? `<div class="product-desc">${art.desc}</div>` : ''}
+        </div>
+        <div class="product-footer">
+          <span class="product-price">${priceStr}</span>
+          <a class="btn-order" href="${cmdHref}"${cmdTarget}>Commander</a>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  // ── Toast ─────────────────────────────────────────
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+</script>
+</body>
+</html>

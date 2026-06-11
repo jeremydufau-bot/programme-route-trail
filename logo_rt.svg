@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  <!-- Fond gris anthracite -->
+  <rect width="40" height="40" fill="#2C2C2C"/>
+  <!-- Montagne basque verte -->
+  <path d="M0 31 L12 16 L19 24 L26 14 L40 29 L40 40 L0 40Z" fill="#2E7D32"/>
+  <!-- Crête blanche -->
+  <polyline points="12,16 19,24 26,14" fill="none" stroke="white" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- Point rouge basque au sommet -->
+  <circle cx="26" cy="14" r="3" fill="#BF0000"/>
+  <!-- Ligne de route blanche en bas -->
+  <path d="M0 34 Q10 31 20 33 Q30 35 40 32" stroke="white" stroke-width="1" fill="none" opacity="0.4"/>
+</svg>

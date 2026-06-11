@@ -1,0 +1,362 @@
+<!-- MAJ 31/05/26 -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programme Route/Trail — Proposer une séance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.prop-grid{display:grid;grid-template-columns:3fr 2fr;gap:1.5rem;align-items:start}
+@media(max-width:900px){.prop-grid{grid-template-columns:1fr}}
+
+.prop-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 2px 16px rgba(30,30,30,.07)}
+.prop-box-hdr{background:var(--navy);padding:.75rem 1.1rem;display:flex;align-items:center;gap:.5rem}
+.prop-box-hdr h3{color:#fff;font-size:.85rem;font-weight:700;flex:1;margin:0}
+.prop-box-body{padding:1rem 1.1rem}
+
+.field-label{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:.25rem}
+.field-input,.field-select,.field-textarea{width:100%;padding:.5rem .7rem;border:1px solid var(--border);border-radius:6px;font-family:'Lora',serif;font-size:.82rem;background:var(--surface);color:var(--text)}
+.field-textarea{resize:vertical}
+.field-group{margin-bottom:.75rem}
+.btn-sm{font-family:'Lora',serif;font-size:.68rem;font-weight:600;padding:.3rem .6rem;border-radius:5px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer}
+.btn-sm:hover{border-color:var(--light);color:var(--navy)}
+.btn-sm.danger{color:var(--rouge);border-color:rgba(192,64,64,.3)}
+
+.pl-serie-block{background:rgba(30,30,30,.04);border:1px solid var(--border);border-radius:8px;padding:.6rem .7rem;margin-bottom:.5rem}
+.pl-rest-block{display:flex;align-items:center;gap:.5rem;background:rgba(74,138,90,.06);border:1px solid rgba(74,138,90,.2);border-radius:6px;padding:.45rem .7rem;margin-bottom:.5rem}
+.pl-step-row{display:grid;grid-template-columns:50px 1fr 80px 80px 32px;gap:.3rem;align-items:end;margin-bottom:.35rem}
+
+.stat-box{display:flex;gap:1rem;background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:8px;padding:.7rem 1rem;margin:.8rem 0;color:#fff}
+.stat-val{font-size:1.4rem;font-weight:800}
+
+.submit-btn{width:100%;background:var(--mousse);color:#fff;border:none;border-radius:8px;padding:.7rem;font-family:'Lora',serif;font-size:.84rem;font-weight:700;cursor:pointer;transition:.15s}
+.submit-btn:hover{background:#3a7a48}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed}
+
+.prop-card{border-bottom:1px solid var(--border);padding:.6rem .8rem;transition:.12s}
+.prop-card:last-child{border-bottom:none}
+.prop-card:hover{background:rgba(165,214,167,.04)}
+
+.status-pill{display:inline-block;font-size:.55rem;font-weight:700;padding:.1rem .4rem;border-radius:3px;text-transform:uppercase;letter-spacing:.06em}
+.status-pending{background:rgba(212,137,58,.15);color:#8a5010}
+.status-approved{background:rgba(74,138,90,.15);color:var(--mousse)}
+
+#prop-toast{position:fixed;bottom:1.5rem;right:1.5rem;z-index:2000;display:flex;flex-direction:column;gap:.4rem;pointer-events:none}
+.toast-item{font-family:'Lora',serif;font-size:.78rem;padding:.55rem 1rem;border-radius:8px;color:#fff;box-shadow:0 4px 16px rgba(0,0,0,.15);animation:toastIn .25s ease}
+.toast-item.success{background:var(--mousse)}.toast-item.error{background:var(--rouge)}.toast-item.info{background:var(--blue)}
+@keyframes toastIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="logo_rt.svg" alt="Route/Trail" class="logo">
+  <span class="site-name">Programme Route/Trail</span>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="programme.html">Programme</a>
+    <!-- <a href="philosophie.html">Méthode</a> -->
+    <!-- <a href="renforcement.html">Renforcement</a> -->
+    <!-- <a href="routines.html">Routines Matin</a> -->
+    <!-- <a class="active" href="proposer.html">Proposer</a> -->
+    <!-- <a href="boutique.html">🛍️ Boutique</a> -->
+    <a href="trombinoscope.html">👥 Trombi</a>
+    <a href="admin.html" class="nav-coach">Entraîneur</a>
+  </nav>
+</header>
+
+<div class="page">
+  <div class="sec-eye">Communauté</div>
+  <div class="sec-title">Propose ta <em>séance</em></div>
+  <p class="sec-intro">Construis une séance et soumets-la aux entraîneurs. Ils décideront de l'intégrer ou non dans la bibliothèque officielle.</p>
+
+  <div class="prop-grid">
+
+    <!-- FORMULAIRE -->
+    <div class="prop-box">
+      <div class="prop-box-hdr">
+        <h3>✍️ Nouvelle proposition</h3>
+      </div>
+      <div class="prop-box-body">
+
+        <div class="field-group">
+          <span class="field-label">Ton prénom / pseudo <span style="color:var(--rouge)">*</span></span>
+          <input class="field-input" id="prop-author" placeholder="Ex : Marc, Lucie…" maxlength="40">
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 140px 110px;gap:.5rem">
+          <div class="field-group">
+            <span class="field-label">Titre <span style="color:var(--rouge)">*</span></span>
+            <input class="field-input" id="prop-title" placeholder="Ex : 3×(6×200m) R45s">
+          </div>
+          <div class="field-group">
+            <span class="field-label">Catégorie</span>
+            <select class="field-select" id="prop-category">
+              <option>VMA Courte</option><option>VMA Longue</option><option>Seuil</option>
+              <option>Allure Marathon</option><option>Allure Spécifique</option><option>Côtes</option>
+              <option>Puissance Montée</option><option>Technique Descente</option><option>Spécificité Trail</option>
+              <option>Volume Endurance</option><option>Sortie Longue</option><option>Récupération</option>
+              <option>Mixte</option><option>Activation</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <span class="field-label">Terrain</span>
+            <select class="field-select" id="prop-terrain">
+              <option>Route</option><option>Piste</option><option>Trail</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <span class="field-label">Description / consignes</span>
+          <textarea class="field-textarea" id="prop-description" rows="3" placeholder="Objectifs, allures, conseils pour les coureurs…"></textarea>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 2fr;gap:.5rem;background:rgba(30,30,30,.04);padding:.6rem;border-radius:8px;margin-bottom:.6rem">
+          <div class="field-group" style="margin-bottom:0">
+            <span class="field-label">Écht. (sec)</span>
+            <input type="number" class="field-input" id="prop-warmup" value="1200" oninput="propCalc()">
+          </div>
+          <div class="field-group" style="margin-bottom:0">
+            <span class="field-label">R.Calme (sec)</span>
+            <input type="number" class="field-input" id="prop-cooldown" value="600" oninput="propCalc()">
+          </div>
+          <div class="field-group" style="margin-bottom:0">
+            <span class="field-label">RPE Foster : <span id="prop-rpe-display" style="color:var(--rouge);font-weight:700">7</span>/10</span>
+            <input type="range" id="prop-rpe" min="1" max="10" value="7" style="width:100%;margin-top:.35rem;accent-color:var(--navy)" oninput="document.getElementById('prop-rpe-display').textContent=this.value;propCalc()">
+          </div>
+        </div>
+
+        <div style="display:flex;gap:.4rem;margin-bottom:.6rem">
+          <button class="btn-sm" style="background:var(--navy);color:#fff;border-color:var(--navy)" onclick="propAddSerie()">+ Bloc Travail</button>
+          <button class="btn-sm" style="background:var(--mousse);color:#fff;border-color:var(--mousse)" onclick="propAddRest()">+ Repos inter-blocs</button>
+        </div>
+
+        <div id="prop-blocks"></div>
+
+        <div class="stat-box">
+          <div style="flex:1">
+            <div style="font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;opacity:.7;margin-bottom:.1rem">Durée totale</div>
+            <div class="stat-val"><span id="prop-stat-dur">0</span> <small style="font-size:.75rem;opacity:.8">min</small></div>
+          </div>
+          <div style="flex:1">
+            <div style="font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;opacity:.7;margin-bottom:.1rem">Charge (UA Foster)</div>
+            <div class="stat-val"><span id="prop-stat-ua">0</span></div>
+          </div>
+        </div>
+
+        <button class="submit-btn" id="prop-submit-btn" onclick="propSubmit()">💡 Soumettre la séance</button>
+      </div>
+    </div>
+
+    <!-- PROPOSITIONS DE LA COMMUNAUTÉ -->
+    <div class="prop-box">
+      <div class="prop-box-hdr">
+        <h3>📬 Propositions</h3>
+        <button onclick="propLoadList()" style="background:none;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-family:'Lora',serif;font-size:.62rem;padding:.2rem .45rem;border-radius:4px;cursor:pointer">↻</button>
+      </div>
+      <div id="prop-list" style="max-height:75vh;overflow-y:auto">
+        <div style="color:var(--muted);font-size:.76rem;text-align:center;padding:2rem 1rem">Chargement…</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="prop-toast"></div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="firebase.js"></script>
+<script>
+
+// ── Toast ──
+function propToast(msg, type='info'){
+  const c=document.getElementById('prop-toast');
+  const el=document.createElement('div');
+  el.className='toast-item '+type; el.textContent=msg;
+  c.appendChild(el); setTimeout(()=>el.remove(),3200);
+}
+
+// ── Block builder ──
+let _idx=0;
+
+function propAddSerie(data){
+  const i=++_idx, sr=data?.serieReps??1, ir=data?.innerReps??8, isr=data?.interSerieRest??180;
+  document.getElementById('prop-blocks').insertAdjacentHTML('beforeend',`
+  <div class="pl-serie-block prop-item" data-type="work" id="ppb-${i}">
+    <div style="display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;margin-bottom:.5rem">
+      <div class="field-group" style="min-width:65px;margin:0"><span class="field-label">Séries</span><input type="number" class="field-input pp-serie-reps" value="${sr}" min="1" oninput="propCalc()"></div>
+      <div class="field-group" style="min-width:95px;margin:0"><span class="field-label">Repos inter (s)</span><input type="number" class="field-input pp-inter-rest" value="${isr}" min="0" oninput="propCalc()"></div>
+      <div class="field-group" style="flex:1;min-width:75px;margin:0"><span class="field-label">Répét.</span><input type="number" class="field-input pp-inner-reps" value="${ir}" min="1" oninput="propCalc()"></div>
+      <button class="btn-sm danger" style="align-self:flex-end;padding:.25rem .45rem" onclick="document.getElementById('ppb-${i}').remove();propCalc()">✕</button>
+    </div>
+    <div id="ppb-steps-${i}"></div>
+    <button class="btn-sm" style="font-size:.62rem;margin-top:.2rem" onclick="propAddStep(${i})">+ Segment</button>
+  </div>`);
+  (data?.steps?.length?data.steps:[null]).forEach(s=>propAddStep(i,s));
+  propCalc();
+}
+
+function propAddRest(value){
+  const i=++_idx, v=value??300;
+  document.getElementById('prop-blocks').insertAdjacentHTML('beforeend',`
+  <div class="pl-rest-block prop-item" data-type="rest" id="ppb-${i}">
+    <span style="font-size:.7rem;font-weight:700;color:var(--mousse);white-space:nowrap">☕ Repos</span>
+    <input type="number" class="field-input pp-rest-val" value="${v}" style="width:80px" oninput="propCalc()">
+    <span style="font-size:.7rem;color:var(--muted)">sec</span>
+    <button class="btn-sm danger" style="margin-left:auto;padding:.2rem .4rem" onclick="document.getElementById('ppb-${i}').remove();propCalc()">✕</button>
+  </div>`);
+  propCalc();
+}
+
+function propAddStep(si, data){
+  const sr=data?.stepReps??1, val=data?.value??30, unit=data?.unit??'s', rest=data?.rest??30;
+  document.getElementById('ppb-steps-'+si).insertAdjacentHTML('beforeend',`
+  <div class="pl-step-row pp-step-row">
+    <div><span class="field-label">Nb</span><input type="number" class="field-input pp-reps" value="${sr}" min="1" oninput="propCalc()"></div>
+    <div><span class="field-label">Effort</span><input type="number" class="field-input pp-val" value="${val}" step="0.1" min="0" oninput="propCalc()"></div>
+    <div><span class="field-label">Unité</span><select class="field-select pp-unit" onchange="propCalc()">
+      <option value="s"${unit==='s'?' selected':''}>sec</option>
+      <option value="min"${unit==='min'?' selected':''}>min</option>
+      <option value="m"${unit==='m'?' selected':''}>m</option>
+      <option value="km"${unit==='km'?' selected':''}>km</option>
+    </select></div>
+    <div><span class="field-label">Récup (s)</span><input type="number" class="field-input pp-rest" value="${rest}" min="0" oninput="propCalc()"></div>
+    <button class="btn-sm danger" style="align-self:flex-end;padding:.2rem .35rem" onclick="this.closest('.pp-step-row').remove();propCalc()">✕</button>
+  </div>`);
+  propCalc();
+}
+
+function propCalc(){
+  const M=4.166;
+  const w=parseFloat(document.getElementById('prop-warmup')?.value)||0;
+  const c=parseFloat(document.getElementById('prop-cooldown')?.value)||0;
+  const rpe=parseInt(document.getElementById('prop-rpe')?.value)||7;
+  let t=w+c;
+  document.querySelectorAll('#prop-blocks .prop-item').forEach(item=>{
+    if(item.dataset.type==='work'){
+      const sr=parseFloat(item.querySelector('.pp-serie-reps')?.value)||1;
+      const ir=parseFloat(item.querySelector('.pp-inner-reps')?.value)||1;
+      const isr=parseFloat(item.querySelector('.pp-inter-rest')?.value)||0;
+      let s=0;
+      item.querySelectorAll('.pp-step-row').forEach(row=>{
+        const n=parseFloat(row.querySelector('.pp-reps')?.value)||1;
+        const v=parseFloat(row.querySelector('.pp-val')?.value)||0;
+        const u=row.querySelector('.pp-unit')?.value;
+        const e=u==='min'?v*60:u==='m'?v/M:u==='km'?v*1000/M:v;
+        const r=parseFloat(row.querySelector('.pp-rest')?.value)||0;
+        s+=(e+r)*n;
+      });
+      t+=(s*ir*sr)+(isr*(sr-1));
+    } else {
+      t+=parseFloat(item.querySelector('.pp-rest-val')?.value)||0;
+    }
+  });
+  const dur=Math.round(t/60), ua=Math.round(dur*rpe);
+  document.getElementById('prop-stat-dur').textContent=dur;
+  document.getElementById('prop-stat-ua').textContent=ua;
+}
+
+function propCollectSeries(){
+  const series=[];
+  document.querySelectorAll('#prop-blocks .prop-item').forEach(item=>{
+    if(item.dataset.type==='work'){
+      const steps=[];
+      item.querySelectorAll('.pp-step-row').forEach(r=>{
+        steps.push({stepReps:parseInt(r.querySelector('.pp-reps')?.value)||1,value:parseFloat(r.querySelector('.pp-val')?.value)||0,unit:r.querySelector('.pp-unit')?.value||'s',rest:parseInt(r.querySelector('.pp-rest')?.value)||0});
+      });
+      series.push({type:'work',serieReps:parseInt(item.querySelector('.pp-serie-reps')?.value)||1,interSerieRest:parseInt(item.querySelector('.pp-inter-rest')?.value)||0,innerReps:parseInt(item.querySelector('.pp-inner-reps')?.value)||1,steps});
+    } else {
+      series.push({type:'rest_block',value:parseInt(item.querySelector('.pp-rest-val')?.value)||0});
+    }
+  });
+  return series;
+}
+
+// ── Soumettre ──
+async function propSubmit(){
+  const author=(document.getElementById('prop-author').value||'').trim();
+  const title=(document.getElementById('prop-title').value||'').trim();
+  if(!author){ propToast('Indique ton prénom ou pseudo','error'); return; }
+  if(!title){ propToast('Donne un titre à la séance','error'); return; }
+
+  const data={
+    proposedBy:   author,
+    title,
+    category:     document.getElementById('prop-category').value,
+    terrain:      document.getElementById('prop-terrain').value,
+    description:  (document.getElementById('prop-description').value||'').trim(),
+    warmupSec:    parseInt(document.getElementById('prop-warmup').value)||1200,
+    cooldownSec:  parseInt(document.getElementById('prop-cooldown').value)||600,
+    rpe_foster:   parseInt(document.getElementById('prop-rpe').value)||7,
+    totalDuration:parseInt(document.getElementById('prop-stat-dur').textContent)||0,
+    totalUA:      parseInt(document.getElementById('prop-stat-ua').textContent)||0,
+    series:       propCollectSeries(),
+    status:       'pending',
+    proposedAt:   new Date().toISOString()
+  };
+
+  const btn=document.getElementById('prop-submit-btn');
+  btn.disabled=true; btn.textContent='Envoi…';
+  try {
+    await fbSaveSeanceProposeee(data);
+    propToast('Séance soumise ! Les entraîneurs vont l\'examiner.','success');
+    document.getElementById('prop-author').value='';
+    document.getElementById('prop-title').value='';
+    document.getElementById('prop-description').value='';
+    document.getElementById('prop-blocks').innerHTML='';
+    document.getElementById('prop-warmup').value=1200;
+    document.getElementById('prop-cooldown').value=600;
+    document.getElementById('prop-rpe').value=7;
+    document.getElementById('prop-rpe-display').textContent='7';
+    propCalc();
+    await propLoadList();
+  } catch(e){
+    propToast('Erreur lors de l\'envoi : '+e.message,'error');
+  }
+  btn.disabled=false; btn.textContent='💡 Soumettre la séance';
+}
+
+// ── Liste des propositions ──
+const CAT_ICON={'VMA Courte':'🔥','VMA Longue':'🔥','Seuil':'⚡','Allure Marathon':'🏁','Allure Spécifique':'🎯','Côtes':'⛰️','Puissance Montée':'🏔️','Technique Descente':'🎿','Spécificité Trail':'🌲','Volume Endurance':'🏃','Sortie Longue':'🏔️','Récupération':'🌿','Mixte':'🔄','Activation':'⚡'};
+
+async function propLoadList(){
+  const el=document.getElementById('prop-list');
+  el.innerHTML='<div style="color:var(--muted);font-size:.74rem;text-align:center;padding:1.5rem">Chargement…</div>';
+  try {
+    const list=await fbLoadSeancesProposees();
+    if(!list.length){
+      el.innerHTML='<div style="color:var(--muted);font-size:.76rem;text-align:center;padding:2rem 1rem">Aucune proposition pour l\'instant.<br><span style="font-size:.68rem">Sois le premier !</span></div>';
+      return;
+    }
+    el.innerHTML=list.map(p=>{
+      const icon=CAT_ICON[p.category]||'📋';
+      const date=p.proposedAt?new Date(p.proposedAt).toLocaleDateString('fr-FR',{day:'numeric',month:'short'}):'';
+      const badge=p.status==='approved'
+        ?'<span class="status-pill status-approved">✓ Intégrée</span>'
+        :'<span class="status-pill status-pending">En attente</span>';
+      return `<div class="prop-card">
+        <div style="font-size:.8rem;font-weight:700;color:var(--navy);margin-bottom:.3rem">${icon} ${p.title||'—'}</div>
+        <div style="display:flex;gap:.3rem;flex-wrap:wrap;align-items:center;margin-bottom:.3rem">
+          <span style="font-size:.6rem;font-weight:700;background:rgba(30,30,30,.08);color:var(--navy);padding:.1rem .35rem;border-radius:3px">${p.category||''}</span>
+          ${p.totalUA?`<span class="rpe-pill">${p.totalUA} UA</span>`:''}
+          ${badge}
+        </div>
+        <div style="font-size:.62rem;color:var(--muted)">✍️ ${p.proposedBy||'Anonyme'} · ${date}</div>
+      </div>`;
+    }).join('');
+  } catch(e){
+    el.innerHTML='<div style="color:var(--rouge);font-size:.72rem;padding:1rem">Erreur : '+e.message+'</div>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded',()=>{ propCalc(); propLoadList(); });
+</script>
+</body>
+</html>

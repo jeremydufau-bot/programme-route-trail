@@ -1,0 +1,273 @@
+<!-- MAJ 31/05/26 -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programme Route/Trail — Méthode</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <img src="logo_rt.svg" alt="Route/Trail" class="logo">
+  <span class="site-name">Programme Route/Trail</span>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="programme.html">Programme</a>
+    <!-- <a class="active" href="philosophie.html">Méthode</a> -->
+    <!-- <a href="renforcement.html">Renforcement</a> -->
+    <!-- <a href="routines.html">Routines Matin</a> -->
+    <!-- <a href="proposer.html">Proposer</a> -->
+    <!-- <a href="boutique.html">🛍️ Boutique</a> -->
+    <a href="trombinoscope.html">👥 Trombi</a>
+    <a href="admin.html" class="nav-coach">Entraîneur</a>
+  </nav>
+</header>
+
+<div class="page" id="methode">
+
+  <!-- ══ INTRO ══ -->
+  <div class="sec-eye">Notre approche</div>
+  <div class="sec-title">On court <em>au feeling</em> !</div>
+  <p class="sec-intro">On utilise la méthode Foster : on se base sur le ressenti (RPE) plutôt que sur la vitesse pour guider nos entraînements. Cette approche simple permet à chaque coureur — débutant ou confirmé — de partager la même séance, chacun à son propre niveau d'effort.</p>
+
+  <!-- ══ INCLUSION ══ -->
+  <div style="background:rgba(165,214,167,0.08);border:1px solid rgba(165,214,167,0.2);border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:2rem">
+    <h3 style="color:var(--navy);margin-bottom:0.7rem;font-size:1rem">🤝 Réunis par l'intensité, pas par la vitesse</h3>
+    <p style="font-size:0.87rem;color:var(--text);line-height:1.7;margin-bottom:0.9rem">Dans notre groupe, on a des fusées qui préparent des chronos et des coureurs là pour le plaisir et la santé. Avec le RPE, si on demande un effort à <strong>7/10</strong>, le coureur à 10 km/h et celui à 16 km/h partagent <strong>exactement la même intensité</strong>. On ne court pas à la même allure, mais on partage la même séance.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center">
+        <div style="font-size:2rem;font-weight:800;color:var(--blue)">10 km/h</div>
+        <div style="font-size:0.7rem;font-weight:700;color:var(--light);margin-top:0.2rem">RPE 7/10</div>
+        <div style="font-size:0.72rem;color:var(--muted)">Coureur débutant</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center">
+        <div style="font-size:2rem;font-weight:800;color:var(--blue)">16 km/h</div>
+        <div style="font-size:0.7rem;font-weight:700;color:var(--light);margin-top:0.2rem">RPE 7/10</div>
+        <div style="font-size:0.72rem;color:var(--muted)">Coureur confirmé</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ RPE TITRE ══ -->
+  <div class="sec-eye">L'échelle de ressenti</div>
+  <div class="sec-title" style="font-size:1.4rem">Le RPE <em>en détail</em></div>
+  <p class="sec-intro">Le RPE (Rate of Perceived Exertion) est une note de <strong>1 à 10</strong> donnée dans les 30 minutes après l'effort. Voici ce que chaque valeur signifie concrètement — sensation physique, test de la parole, durée tenable et exemples réels.</p>
+
+  <!-- ══ RPE CARDS ══ -->
+  <div style="display:flex;flex-direction:column;gap:0.8rem;margin-bottom:1.5rem">
+
+    <!-- 1-2 -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;border-left:5px solid #4a8a5a">
+      <div style="display:flex;align-items:center;gap:0.8rem;padding:0.9rem 1.1rem;background:rgba(74,138,90,0.06)">
+        <div style="font-size:1.8rem;font-weight:800;color:#4a8a5a;min-width:2.5rem;text-align:center">1–2</div>
+        <div>
+          <div style="font-size:0.9rem;font-weight:700;color:#4a8a5a">Très facile</div>
+          <div style="font-size:0.75rem;color:var(--muted)">Récupération active</div>
+        </div>
+      </div>
+      <div style="padding:0.9rem 1.1rem;display:flex;flex-direction:column;gap:0.45rem">
+        <div style="font-size:0.83rem;color:var(--text);line-height:1.6"><strong>💬 Test parole :</strong> Conversation normale, vous pourriez chanter</div>
+        <div style="font-size:0.83rem;color:var(--text);line-height:1.6"><strong>⏱ Durée tenable :</strong> Illimitée — le corps ne fatigue pas vraiment</div>
+        <div style="font-size:0.83rem;color:var(--text);line-height:1.6"><strong>🎯 Exemples :</strong> Marche active, footing très lent, cooldown, lendemain de compétition</div>
+        <div style="font-size:0.8rem;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:0.45rem;margin-top:0.1rem">Ce n'est pas un entraînement à proprement parler : le but est de faire circuler le sang sans stress physiologique.</div>
+      </div>
+    </div>
+
+    <!-- 3-4 -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;border-left:5px solid #3da865">
+      <div style="display:flex;align-items:center;gap:0.8rem;padding:0.9rem 1.1rem;background:rgba(61,168,101,0.07)">
+        <div style="font-size:1.8rem;font-weight:800;color:#3da865;min-width:2.5rem;text-align:center">3–4</div>
+        <div>
+          <div style="font-size:0.9rem;font-weight:700;color:#3da865">Facile</div>
+          <div style="font-size:0.75rem;color:var(--muted)">Endurance fondamentale</div>
+        </div>
+      </div>
+      <div style="padding:0.9rem 1.1rem;display:flex;flex-direction:column;gap:0.45rem">
+        <div style="font-size:0.83rem;color:var(--text);line-height:1.6"><strong>💬 Test parole :</strong> Phrases complètes sans effort — vous discutez normalement</div>
+        <div style="font-size:0.83rem;color:var(--text);line-height:1.6"><strong>⏱ Durée tenable :</strong> Très longtemps — 1h30 à 3h+ selon le niveau</div>
+        <div style="font-size:0.83rem;color:var(--text);line-height:1.6"><strong>🎯 Exemples :</strong> Footing du mardi, sortie longue, échauffement long de 20 min</div>
+        <div style="font-size:0.8rem;color:#3da865;font-weight:600;border-top:1px solid var(--border);padding-top:0.45rem;margin-top:0.1rem">Zone la plus précieuse : 70–75 % du volume annuel doit se faire ici. Elle construit le moteur aérobie — la base sur laquelle tout s'appuie.</div>
+      </div>
+    </div>
+
+    <!-- 5-6 -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;border-left:5px solid #efac27">
+      <div style="display:flex;align-items:center;gap:0.8rem;padding:0.9rem 1.1rem;background:rgba(239,172,39,0.07)">
+        <div style="font-size:1.8rem;font-weight:800;color:#b56a10;min-width:2.5rem;text-align:center">5–6</div>
+        <div>
+          <div style="font-size:0.9rem;font-weight:700;color:#b56a10">Modéré</div>
+          <div style="font-size:0.75rem;color:var(--muted)">Allure marathon / tempo</div>
+        </div>
+      </div>
+      <div style="padding:0.9rem 1.1rem;display:flex;flex-direction:column;gap:0.45rem">
+        <div style="font-size:0.83rem;color:var(--text);line-height:1.6"><strong>💬 Test parole :</strong> Phrases courtes possibles, mais la conversation devient laborieuse</div>
+        <div style="font-size:0.83rem;color:var(--text);line-height:1.6"><strong>⏱ Durée tenable :</strong> 45 min à 2h selon le niveau — on est clairement dans l'effort</div>
+        <div style="font-size:0.83rem;color:var(--text);line-height:1.6"><strong>🎯 Exemples :</strong> Sortie tempo, allure marathon, côtes douces enchaînées, seuil bas</div>
+        <div style="font-size:0.8rem;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:0.45rem;margin-top:0.1rem">Zone du seuil aérobie : efficace pour progresser sans compromettre la récupération du lendemain.</div>
+      </div>
+    </div>
+
+    <!-- 7-8 -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;border-left:5px solid #e07030">
+      <div style="display:flex;align-items:center;gap:0.8rem;padding:0.9rem 1.1rem;background:rgba(224,112,48,0.07)">
+        <div style="font-size:1.8rem;font-weight:800;color:#c05020;min-width:2.5rem;text-align:center">7–8</div>
+        <div>
+          <div style="font-size:0.9rem;font-weight:700;color:#c05020">Difficile</div>
+          <div style="font-size:0.75rem;color:var(--muted)">Seuil / allure 10 km – semi-marathon</div>
+        </div>
+      </div>
+      <div style="padding:0.9rem 1.1rem;display:flex;flex-direction:column;gap:0.45rem">
+        <div style="font-size:0.83rem;color:var(--text);line-height:1.6"><strong>💬 Test parole :</strong> Quelques mots seulement — parler est difficile et désagréable</div>
+        <div style="font-size:0.83rem;color:var(--text);line-height:1.6"><strong>⏱ Durée tenable :</strong> 20 à 50 minutes maximum selon le niveau</div>
+        <div style="font-size:0.83rem;color:var(--text);line-height:1.6"><strong>🎯 Exemples :</strong> Intervalles, 3×1000 m, côtes courtes répétées, allure compétition 10 km</div>
+        <div style="font-size:0.8rem;color:#c05020;font-weight:600;border-top:1px solid var(--border);padding-top:0.45rem;margin-top:0.1rem">Zone clé pour progresser : stimule fortement les adaptations cardio-vasculaires. Récupération de 48 h minimum requise.</div>
+      </div>
+    </div>
+
+    <!-- 9-10 -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;border-left:5px solid #c04040">
+      <div style="display:flex;align-items:center;gap:0.8rem;padding:0.9rem 1.1rem;background:rgba(192,64,64,0.07)">
+        <div style="font-size:1.8rem;font-weight:800;color:var(--rouge);min-width:2.5rem;text-align:center">9–10</div>
+        <div>
+          <div style="font-size:0.9rem;font-weight:700;color:var(--rouge)">Très difficile</div>
+          <div style="font-size:0.75rem;color:var(--muted)">VMA / sprint</div>
+        </div>
+      </div>
+      <div style="padding:0.9rem 1.1rem;display:flex;flex-direction:column;gap:0.45rem">
+        <div style="font-size:0.83rem;color:var(--text);line-height:1.6"><strong>💬 Test parole :</strong> Impossible de prononcer un seul mot</div>
+        <div style="font-size:0.83rem;color:var(--text);line-height:1.6"><strong>⏱ Durée tenable :</strong> 30 secondes à 5 minutes maximum — le corps donne tout ce qu'il a</div>
+        <div style="font-size:0.83rem;color:var(--text);line-height:1.6"><strong>🎯 Exemples :</strong> Sprints finaux, répétitions courtes 100–400 m, séances VMA pures</div>
+        <div style="font-size:0.8rem;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:0.45rem;margin-top:0.1rem">Zone anaérobie : très formateur mais très coûteux. À utiliser avec parcimonie — récupération de 48 h minimum, souvent plus.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TIMING RPE -->
+  <div style="background:rgba(46,125,50,0.06);border:1px solid rgba(46,125,50,0.15);border-radius:12px;padding:1rem 1.2rem;margin-bottom:2rem">
+    <h4 style="color:var(--navy);font-size:0.9rem;margin-bottom:0.4rem">⏱ Quand donner son RPE ?</h4>
+    <p style="font-size:0.83rem;color:var(--text);line-height:1.6">Dans les <strong>30 minutes après la fin de la séance</strong>. Juste après l'effort, on surestime souvent à cause de la fatigue du dernier exercice. À 30 minutes, le corps a intégré la séance dans sa globalité — c'est la note la plus fiable, conforme au protocole Foster original.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══ UA ══ -->
+  <div class="sec-eye">Mesurer la charge</div>
+  <div class="sec-title" style="font-size:1.4rem">L'UA — <em>la charge réelle</em></div>
+  <p style="font-size:0.87rem;color:var(--muted);line-height:1.7;margin-bottom:1.2rem">L'Unité Arbitraire (UA) mesure la fatigue totale infligée au corps lors d'une séance. Calcul simple :</p>
+
+  <div style="background:var(--blue);border-radius:14px;padding:1.5rem 2rem;text-align:center;margin-bottom:1.2rem">
+    <div style="font-size:2rem;font-weight:800;color:#fff;letter-spacing:.04em;line-height:1.2">UA = RPE × Durée (min)</div>
+    <div style="font-size:0.65rem;color:rgba(255,255,255,.55);margin-top:.35rem;letter-spacing:.08em">CHARGE = INTENSITÉ RESSENTIE × TEMPS</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:1rem">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center">
+      <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:0.3rem">Footing 45 min · RPE 4</div>
+      <div style="font-size:2rem;font-weight:800;color:var(--mousse)">180 UA</div>
+      <div style="font-size:0.7rem;color:var(--muted)">séance légère</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center">
+      <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:0.3rem">Intervalles 45 min · RPE 8</div>
+      <div style="font-size:2rem;font-weight:800;color:var(--rouge)">360 UA</div>
+      <div style="font-size:0.7rem;color:var(--muted)">charge double !</div>
+    </div>
+  </div>
+
+  <div style="background:rgba(129,199,132,.1);border:1px solid rgba(129,199,132,.25);border-radius:10px;padding:1rem 1.2rem;font-size:.82rem;color:var(--blue);line-height:1.7;font-weight:600;margin-bottom:1rem">
+    💡 La force de la méthode : 30 min de côtes intenses fatiguent autant que 60 min de footing lent. Le corps ne compte pas les kilomètres — il compte la charge.
+  </div>
+
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem;margin-bottom:2rem">
+    <h4 style="font-size:0.85rem;color:var(--navy);margin-bottom:0.6rem">Pourquoi le coach surveille vos UA</h4>
+    <ul style="font-size:0.82rem;color:var(--muted);padding-left:1.2rem;line-height:1.9">
+      <li><strong style="color:var(--text)">Progresser :</strong> on augmente le total de 10–15 % max par semaine</li>
+      <li><strong style="color:var(--text)">Récupérer :</strong> certaines semaines, on baisse drastiquement pour vous recharger</li>
+      <li><strong style="color:var(--text)">Protéger :</strong> un pic d'UA trop soudain = alerte blessure à anticiper</li>
+    </ul>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══ CE QUE LA MONTRE NE VOIT PAS ══ -->
+  <div class="sec-eye">L'avantage du ressenti</div>
+  <div class="sec-title" style="font-size:1.4rem">Ce que la montre <em>ne voit pas</em></div>
+
+  <p style="font-size:0.87rem;color:var(--muted);line-height:1.7;margin-bottom:1rem">Votre GPS mesure votre vitesse. Votre cardio mesure votre fréquence cardiaque. Mais ni l'un ni l'autre ne savent ce que vous traversez ce jour-là :</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.6rem;margin-bottom:1.2rem">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0.85rem;text-align:center">
+      <div style="font-size:1.4rem;margin-bottom:0.25rem">😴</div>
+      <div style="font-size:0.75rem;font-weight:700;color:var(--navy)">Manque de sommeil</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0.85rem;text-align:center">
+      <div style="font-size:1.4rem;margin-bottom:0.25rem">😤</div>
+      <div style="font-size:0.75rem;font-weight:700;color:var(--navy)">Stress au travail</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0.85rem;text-align:center">
+      <div style="font-size:1.4rem;margin-bottom:0.25rem">🔄</div>
+      <div style="font-size:0.75rem;font-weight:700;color:var(--navy)">Cycle hormonal</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0.85rem;text-align:center">
+      <div style="font-size:1.4rem;margin-bottom:0.25rem">🌡️</div>
+      <div style="font-size:0.75rem;font-weight:700;color:var(--navy)">Chaleur / altitude</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0.85rem;text-align:center">
+      <div style="font-size:1.4rem;margin-bottom:0.25rem">🍽️</div>
+      <div style="font-size:0.75rem;font-weight:700;color:var(--navy)">Alimentation</div>
+    </div>
+  </div>
+
+  <p style="font-size:0.87rem;color:var(--text);line-height:1.7;margin-bottom:0.8rem">Le RPE est le seul indicateur qui intègre <strong>tous ces facteurs en un seul chiffre</strong>. C'est pour ça qu'il est utilisé par les équipes professionnelles dans tous les sports — du football aux sports de combat, en passant par l'athlétisme.</p>
+
+  <div style="background:rgba(165,214,167,0.08);border-left:4px solid var(--sky);padding:0.8rem 1rem;border-radius:4px;font-size:0.83rem;color:var(--navy);font-weight:600;margin-bottom:2rem">
+    💡 Déculpabilisez ! Ajuster son effort en fonction de sa fatigue ou de son cycle, c'est s'entraîner intelligemment pour durer — pas un aveu de faiblesse.
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══ FOSTER SCIENCE ══ -->
+  <div class="sec-eye">La science derrière</div>
+  <div class="sec-title" style="font-size:1.4rem">La méthode <em>Foster</em></div>
+
+  <p style="font-size:0.87rem;color:var(--muted);line-height:1.7;margin-bottom:1.2rem">Cette approche a été publiée par le <strong>Dr. Carl Foster</strong> de l'Université du Wisconsin-La Crosse en 2001. Depuis, <strong>plus de 950 études scientifiques</strong> l'ont citée et 36 ont validé sa fiabilité — chez les hommes, les femmes, les enfants, à tous les niveaux de pratique.</p>
+
+  <!-- Règle du +15% / ACWR texte -->
+  <div style="background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1.2rem">
+    <h4 style="color:var(--navy);font-size:0.92rem;margin-bottom:0.7rem">📈 La règle du +15 % — pourquoi elle existe</h4>
+    <p style="font-size:0.83rem;color:var(--text);line-height:1.6;margin-bottom:0.9rem">Foster a étudié le ratio entre la charge de la semaine en cours et la moyenne des 4 semaines précédentes. Ses résultats sont clairs :</p>
+    <div style="display:flex;flex-direction:column;gap:0.4rem;margin-bottom:0.9rem">
+      <div style="display:flex;align-items:flex-start;gap:0.7rem;padding:0.55rem 0.75rem;background:rgba(74,138,90,0.08);border-radius:8px">
+        <span style="font-size:1.1rem;flex-shrink:0">✅</span>
+        <span style="font-size:0.83rem;color:var(--text)"><strong>0,8 à 1,3 × la moyenne habituelle</strong> — Zone optimale : le corps s'adapte et progresse en sécurité</span>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:0.7rem;padding:0.55rem 0.75rem;background:rgba(212,137,58,0.08);border-radius:8px">
+        <span style="font-size:1.1rem;flex-shrink:0">⚠️</span>
+        <span style="font-size:0.83rem;color:var(--text)"><strong>1,3 à 1,5 × la moyenne</strong> — Attention : augmentation rapide, surveiller les signaux de fatigue</span>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:0.7rem;padding:0.55rem 0.75rem;background:rgba(192,64,64,0.08);border-radius:8px">
+        <span style="font-size:1.1rem;flex-shrink:0">🚨</span>
+        <span style="font-size:0.83rem;color:var(--text)"><strong>Au-delà de 1,5 ×</strong> — Danger : risque de blessure multiplié. C'est ce qu'on évite avec les semaines de décharge.</span>
+      </div>
+    </div>
+    <p style="font-size:0.8rem;color:var(--muted);font-style:italic">89 % des maladies et blessures chez les athlètes s'expliquent par un pic de charge dans les 10 jours précédents — c'est le chiffre qui justifie la prudence dans notre programme.</p>
+  </div>
+
+  <!-- VMA -->
+  <div style="padding:1.2rem 1.4rem;background:var(--surface2);border:1px solid var(--border);border-radius:14px;margin-bottom:2rem">
+    <h3 style="font-size:0.95rem;color:var(--navy);margin-bottom:0.5rem">⌚ Et la VMA ?</h3>
+    <p style="font-size:0.85rem;color:var(--text);line-height:1.6">On ne l'oublie pas, mais on la calcule sans stress ! En croisant votre RPE et les données de votre montre lors des séances clés (3×1000 m, sorties seuil), vos allures cibles se dessinent naturellement au fil de la saison. La data s'adapte à vous, pas l'inverse.</p>
+  </div>
+
+  <div style="padding-top:1rem;border-top:1px solid var(--border);font-size:0.6rem;color:var(--muted);line-height:1.6;letter-spacing:.02em">
+    📚 Source : Foster C. et al. (2001). A new approach to monitoring exercise training. <em>J Strength Cond Res</em>. · Haddad M. et al. (2017). Session-RPE Method for Training Load Monitoring. <em>Front. Neurosci.</em>
+  </div>
+
+</div>
+
+</body>
+</html>

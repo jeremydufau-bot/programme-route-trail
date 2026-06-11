@@ -1,0 +1,108 @@
+<!-- MAJ 31/05/26 -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programme Route/Trail — 52 semaines</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <img src="logo_rt.svg" alt="Route/Trail" class="logo">
+  <span class="site-name">Programme Route/Trail</span>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a class="active" href="programme.html">Programme</a>
+    <!-- <a href="philosophie.html">Méthode</a> -->
+    <!-- <a href="renforcement.html">Renforcement</a> -->
+    <!-- <a href="routines.html">Routines Matin</a> -->
+    <!-- <a href="proposer.html">Proposer</a> -->
+    <!-- <a href="boutique.html">🛍️ Boutique</a> -->
+    <a href="trombinoscope.html">👥 Trombi</a>
+    <a href="admin.html" class="nav-coach">Entraîneur</a>
+  </nav>
+</header>
+
+<div class="page" id="programme">
+  <div class="sec-eye">Saison complète</div>
+  <div class="sec-title">Programme <em>52 semaines</em></div>
+  <p class="sec-intro">Tronc commun mardi + jeudi. Chaque séance existe en variante Route, Piste, Trail. Auto-régulation par RPE et modulation du volume. Cliquez sur une semaine pour le détail.</p>
+
+  <!-- INFO SOCLE -->
+  <div style="background:linear-gradient(135deg,rgba(30,30,30,.06),rgba(165,214,167,.08));border:1px solid rgba(30,30,30,.12);border-radius:10px;padding:1rem 1.2rem;margin-bottom:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+      <span style="font-size:1.1rem">📊</span>
+      <span style="font-size:.78rem;font-weight:700;color:#1A2540">Calcul de ta charge hebdomadaire</span>
+    </div>
+    <p style="font-size:.76rem;line-height:1.6;color:#1A2540;margin:0">
+      La charge affichée (UA) prend en compte <strong>l'ensemble de ta semaine</strong>, pas seulement les séances club.
+      Elle inclut un <strong>socle de base</strong> : le renforcement musculaire du lundi et le footing de récupération du mercredi,
+      en plus des séances club (mardi et jeudi) et de ta sortie weekend.
+      Cela permet de suivre ta progression réelle (+10% max par semaine recommandé) sans fausser les pourcentages.
+    </p>
+  </div>
+
+  <div style="display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.2rem">
+    <div>
+      <div class="ctrl-label">Sortie weekend</div>
+      <div class="ctrl-bar" id="we-btns">
+        <button class="btn active" onclick="setWE(0,this)">🛣️ Route</button>
+        <button class="btn" onclick="setWE(1,this)">🌲 Trail</button>
+      </div>
+    </div>
+    <div>
+      <div class="ctrl-label">Phase</div>
+      <div class="ctrl-bar" id="phase-btns">
+        <button class="btn active" onclick="setPhase('',this)">Tout</button>
+        <button class="btn" onclick="setPhase('rep',this)">Reprise</button>
+        <button class="btn" onclick="setPhase('base',this)">Base</button>
+        <button class="btn" onclick="setPhase('dev',this)">Développement</button>
+        <button class="btn" onclick="setPhase('force',this)">Cross</button>
+        <button class="btn" onclick="setPhase('precomp',this)">Spécifique</button>
+        <button class="btn" onclick="setPhase('recup',this)">Récup</button>
+        <button class="btn" onclick="setPhase('event',this)">Compétition</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="prog-wrap">
+    <table class="prog-table">
+      <thead><tr>
+        <th style="width:60px">Sem</th>
+        <th>Phase</th>
+        <th>Mardi</th>
+        <th>Jeudi</th>
+        <th id="col-we">Weekend · Route</th>
+        <th style="width:55px;text-align:center">UA</th>
+        <th style="width:50px;text-align:center">Δ%</th>
+      </tr></thead>
+      <tbody id="progBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="overlay" onclick="if(event.target===this)closeModal()">
+  <div id="modal">
+    <div class="modal-hdr">
+      <h3 id="mTitle"></h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="mBody"></div>
+  </div>
+</div>
+
+<!-- Firebase SDK (compat) -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="firebase.js"></script>
+<script src="data.js"></script>
+<script src="_seancesData_new.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

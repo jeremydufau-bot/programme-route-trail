@@ -1,0 +1,71 @@
+<!-- MAJ 31/05/26 -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programme Route/Trail — Accueil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <img src="logo_rt.svg" alt="Route/Trail" class="logo">
+  <span class="site-name">Programme Route/Trail</span>
+  <nav>
+    <a class="active" href="index.html">Accueil</a>
+    <a href="programme.html">Programme</a>
+    <!-- <a href="philosophie.html">Méthode</a> -->
+    <!-- <a href="renforcement.html">Renforcement</a> -->
+    <!-- <a href="routines.html">Routines Matin</a> -->
+    <!-- <a href="proposer.html">Proposer</a> -->
+    <!-- <a href="boutique.html">🛍️ Boutique</a> -->
+    <a href="trombinoscope.html">👥 Trombi</a>
+    <a href="admin.html" class="nav-coach">Entraîneur</a>
+  </nav>
+</header>
+
+<div class="page" id="accueil">
+  <div id="infosClubZone"></div>
+  <div class="sec-eye">Semaine en cours</div>
+  <div class="sec-title" id="acc-title">Programme <em>cette semaine</em></div>
+  <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem">
+    <div>
+      <div class="ctrl-label">Sortie weekend</div>
+      <div class="ctrl-bar">
+        <button class="btn active" onclick="setWE(0,this)">🛣️ Route</button>
+        <button class="btn" onclick="setWE(1,this)">🌲 Trail</button>
+      </div>
+    </div>
+  </div>
+  <div id="acc-grid"></div>
+
+  <div class="divider"></div>
+  <div class="sec-eye">Saison 2026-2027</div>
+  <div class="sec-title" style="font-size:1.4rem">Objectifs <em>repères</em></div>
+  <div id="acc-objectifs" style="max-width:680px;margin-bottom:1.5rem"></div>
+</div>
+
+<!-- Modal -->
+<div id="overlay" onclick="if(event.target===this)closeModal()">
+  <div id="modal">
+    <div class="modal-hdr">
+      <h3 id="mTitle"></h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="mBody"></div>
+  </div>
+</div>
+
+<!-- Firebase SDK (compat) -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="firebase.js"></script>
+<script src="data.js"></script>
+<script src="_seancesData_new.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

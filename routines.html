@@ -1,0 +1,58 @@
+<!-- MAJ 31/05/26 -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programme Route/Trail — Routines Matin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <img src="logo_rt.svg" alt="Route/Trail" class="logo">
+  <span class="site-name">Programme Route/Trail</span>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="programme.html">Programme</a>
+    <!-- <a href="philosophie.html">Méthode</a> -->
+    <!-- <a href="renforcement.html">Renforcement</a> -->
+    <!-- <a class="active" href="routines.html">Routines Matin</a> -->
+    <!-- <a href="proposer.html">Proposer</a> -->
+    <!-- <a href="boutique.html">🛍️ Boutique</a> -->
+    <a href="trombinoscope.html">👥 Trombi</a>
+    <a href="admin.html" class="nav-coach">Entraîneur</a>
+  </nav>
+</header>
+
+<div class="page" id="routines">
+  <div class="sec-eye">Chaque matin</div>
+  <div class="sec-title">Routines <em>réveil musculaire</em></div>
+  <p class="sec-intro">7 routines thématiques (une par jour). 10-15 minutes au réveil, sans matériel ou avec élastiques. Objectif : prévention, mobilité, activation — pas de fatigue.</p>
+  <div>
+    <div class="ctrl-label">Version</div>
+    <div class="ctrl-bar">
+      <button class="btn active" onclick="setReveilEquip('corpo',this)">🤸 Corps</button>
+      <button class="btn" onclick="setReveilEquip('elastiques',this)">🔴 Élastiques</button>
+    </div>
+  </div>
+  <div id="routinesGrid" style="display:grid;gap:.8rem;margin-top:1rem"></div>
+</div>
+
+<!-- Modal -->
+<div id="overlay" onclick="if(event.target===this)closeModal()">
+  <div id="modal">
+    <div class="modal-hdr">
+      <h3 id="mTitle"></h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="mBody"></div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
