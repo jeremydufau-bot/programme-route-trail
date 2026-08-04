@@ -1,12 +1,12 @@
 /* MAJ 31/05/26 */
 /* ══════════════════════════════════════════════════
-   Programme Route/Trail — Shared Stylesheet
+   Bayonne Outdoor Club — Shared Stylesheet
    ══════════════════════════════════════════════════ */
 
 :root{
   --bg:#F3F3F1;--surface:#fff;--surface2:#F7F7F5;--border:rgba(30,30,30,.1);
-  --navy:#2C2C2C;--blue:#2E7D32;--light:#43A047;--sky:#A5D6A7;
-  --text:#1A1A1A;--muted:#696969;--mousse:#4A8A5A;--rouge:#C04040;--ocre:#D4893A;
+  --navy:#1B2A40;--blue:#2E7D32;--light:#43A047;--sky:#A5D6A7;
+  --text:#1A1A1A;--muted:#696969;--mousse:#4A8A5A;--rouge:#C04040;--ocre:#CB8A4C;
   --gold:#B8860B;
 }
 *{margin:0;padding:0;box-sizing:border-box}

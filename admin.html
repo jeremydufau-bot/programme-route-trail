@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin — Programme Route/Trail</title>
+<title>Admin — Bayonne Outdoor Club</title>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="admin.css">
 </head>
@@ -13,7 +13,7 @@
 <!-- LOGIN -->
 <div id="login">
   <div class="login-box">
-    <h2>Programme Route/Trail — Admin</h2>
+    <h2>Bayonne Outdoor Club — Admin</h2>
     <p>Accès réservé aux coachs</p>
     <input type="email" id="email" placeholder="Email" onkeydown="if(event.key==='Enter')doLogin()">
     <input type="password" id="pwd" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')doLogin()">
@@ -26,7 +26,7 @@
 <div id="app">
   <div class="sticky-header">
     <div class="topbar">
-      <h1>Admin — Route/Trail</h1>
+      <h1>Admin — Bayonne Outdoor Club</h1>
       <div class="topbar-right">
         <a href="index.html" class="topbar-btn" style="text-decoration:none">← Accueil</a>
         <span id="status-msg" style="font-size:.65rem;color:rgba(255,255,255,.6)">Prêt</span>
@@ -37,11 +37,10 @@
     <div class="status-bar"><div class="status-dot" id="status-dot"></div><span id="status-text">Aucune modification en attente</span></div>
     <div class="tabs">
       <button class="tab active" onclick="showTab('tab-prog',this)">📅 Programme</button>
-      <button class="tab" onclick="showTab('tab-planner',this)">📋 Séances</button>
+      <button class="tab" onclick="showTab('tab-planner',this)">📋 Bibliothèque de séances</button>
       <button class="tab" onclick="showTab('tab-cal',this)">🗓 Calendrier</button>
       <button class="tab" onclick="showTab('tab-infos',this)">📢 Infos Club</button>
       <button class="tab" onclick="showTab('tab-obj',this)">🏆 Objectifs</button>
-      <!-- <button class="tab" onclick="showTab('tab-boutique',this)">🛍️ Boutique</button> -->
       <button class="tab" onclick="showTab('tab-trombi',this)">👥 Trombi</button>
       <button class="tab" onclick="showTab('tab-config',this)">⚙️ Config</button>
       <button class="tab" onclick="showTab('tab-props',this)">📬 Propositions</button>
@@ -256,75 +255,6 @@
     <button class="btn-sm" id="btn-cancel-edit-obj" style="display:none" onclick="cancelEditObj()">Annuler</button>
   </div>
 </div>
-  <!-- TAB BOUTIQUE -->
-  <div class="admin-page" id="tab-boutique">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
-      <h2 style="font-size:1rem;color:var(--navy)">🛍️ Gestion de la Boutique</h2>
-      <button class="btn-sm" onclick="boutiqueLoad()">↻ Actualiser</button>
-    </div>
-
-    <!-- SECTION LIEN COMMANDE -->
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;margin-bottom:1.2rem">
-      <span style="font-size:.72rem;font-weight:700;color:var(--navy);display:block;margin-bottom:.4rem">📋 Lien du Formulaire de Commande</span>
-      <p style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">
-        Ce lien s'affiche pour les licenciés sous forme de bouton en haut de la boutique et configure les boutons "Commander" de chaque article. Laissez vide pour utiliser le comportement par défaut (e-mail mailto).
-      </p>
-      <div style="display:flex;gap:.5rem;align-items:center">
-        <input type="url" class="field-input" id="btq-order-link" placeholder="https://docs.google.com/forms/... ou vide pour e-mail" style="flex:1">
-        <button class="btn-sm" onclick="boutiqueSaveLink()" style="background:var(--blue);color:#fff;border-color:var(--blue)">💾 Enregistrer le lien</button>
-      </div>
-    </div>
-
-    <!-- SECTION ARTICLES -->
-    <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:1.2rem">
-      
-      <!-- LISTE ARTICLES -->
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem">
-        <span style="font-size:.72rem;font-weight:700;color:var(--navy);display:block;margin-bottom:.8rem">Articles actuels</span>
-        <div id="btq-articles-list" style="max-height:55vh;overflow-y:auto;display:flex;flex-direction:column;gap:.6rem">
-          <!-- Rendu dynamique des articles -->
-        </div>
-      </div>
-
-      <!-- FORMULAIRE ARTICLE -->
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem">
-        <span id="btq-form-title" style="font-size:.72rem;font-weight:700;color:var(--navy);display:block;margin-bottom:.8rem">Ajouter un article</span>
-        <div class="field-group">
-          <label class="field-label">Nom de l'article *</label>
-          <input type="text" class="field-input" id="btq-art-name" placeholder="ex: Coupe-vent Route/Trail">
-        </div>
-        <div class="field-group">
-          <label class="field-label">Prix (€) *</label>
-          <input type="number" class="field-input" id="btq-art-price" placeholder="ex: 45" step="0.01" min="0">
-        </div>
-        <div class="field-group">
-          <label class="field-label">Description</label>
-          <textarea class="field-textarea" id="btq-art-desc" rows="3" placeholder="Description, tailles disponibles..."></textarea>
-        </div>
-        <div class="field-group">
-          <label class="field-label">Photo (URL ou Fichier local)</label>
-          <div style="display:grid;grid-template-columns:1fr auto;gap:.6rem;align-items:start">
-            <div>
-              <input type="url" class="field-input" id="btq-art-photo-url" placeholder="https://... (URL de l'image)" oninput="boutiquePreviewUrl(this.value)" style="margin-bottom:.4rem">
-              <span style="font-size:.65rem;color:var(--muted);display:block;text-align:center;margin-bottom:.4rem">— ou —</span>
-              <label style="display:block;text-align:center;padding:.4rem;border:1px dashed var(--border);border-radius:6px;cursor:pointer;font-size:.72rem;color:var(--muted)">
-                📁 Charger une image
-                <input type="file" id="btq-art-photo-file" accept="image/*" style="display:none" onchange="boutiquePreviewFile(this)">
-              </label>
-            </div>
-            <div id="btq-photo-preview" style="width:100px;height:75px;border:1px dashed var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;background:var(--surface2);overflow:hidden">
-              <span style="font-size:1.5rem;color:var(--border)">🖼️</span>
-            </div>
-          </div>
-        </div>
-        <div style="display:flex;gap:.5rem;margin-top:1rem">
-          <button class="btn-sm" onclick="boutiqueSaveArticle()" style="background:var(--navy);color:#fff;border-color:var(--navy)">Enregistrer l'article</button>
-          <button class="btn-sm" id="btq-btn-cancel" onclick="boutiqueCancelEdit()" style="display:none">Annuler</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
 
   <!-- TAB TROMBINOSCOPE -->
   <div class="admin-page" id="tab-trombi">
@@ -428,14 +358,20 @@
 
 <!-- TAB PLANIFICATEUR -->
 <div class="admin-page" id="tab-planner">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
-    <h2 style="font-size:1rem;color:var(--navy)">Planificateur — <code style="font-size:.8rem;color:var(--blue)">seances_v3</code></h2>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem">
+    <div>
+      <h2 style="font-size:1rem;color:var(--navy)">📋 Bibliothèque de séances</h2>
+      <p style="font-size:.68rem;color:var(--muted);margin-top:.15rem">Créez vos séances par blocs (façon Garmin), elles sont utilisables ensuite dans le Programme.</p>
+    </div>
     <div style="display:flex;gap:.5rem">
       <button class="btn-sm" onclick="plannerLoadList()">↻ Actualiser</button>
+      <button class="btn-sm" onclick="plannerExportLibrary()" title="Télécharger une sauvegarde JSON de toute la bibliothèque">💾 Exporter</button>
       <button class="btn-sm danger" onclick="plannerDeduplicateFirestore()" title="Supprimer les doublons dans Firestore (même id_original, doc ID différent)">🧹 Nettoyer doublons</button>
       <button class="topbar-btn" style="font-size:.72rem;background:var(--blue);border-color:var(--blue)" onclick="plannerNewSeance()">+ Nouvelle séance</button>
     </div>
   </div>
+
+  <div id="planner-stats-strip" class="pl-stats-strip"></div>
 
   <div class="planner-grid">
 
@@ -516,10 +452,12 @@
           <div class="field-group" style="margin-bottom:0">
             <span class="field-label">Écht. (sec)</span>
             <input type="number" class="field-input" id="planner-warmup" value="1200" oninput="plannerCalculate()">
+            <div id="planner-warmup-target-wrap"></div>
           </div>
           <div class="field-group" style="margin-bottom:0">
             <span class="field-label">R.Calme (sec)</span>
             <input type="number" class="field-input" id="planner-cooldown" value="600" oninput="plannerCalculate()">
+            <div id="planner-cooldown-target-wrap"></div>
           </div>
           <div class="field-group" style="margin-bottom:0">
             <span class="field-label">RPE Foster : <span id="planner-rpe-display" style="color:var(--rouge);font-weight:700">7</span>/10</span>
@@ -535,6 +473,9 @@
 
         <!-- Blocs dynamiques -->
         <div id="planner-blocks"></div>
+
+        <!-- Timeline visuelle (façon Garmin) -->
+        <div id="planner-timeline" class="pl-timeline"></div>
 
         <!-- Stats calculées -->
         <div class="pl-stat-box">
@@ -593,7 +534,6 @@
 <script src="firebase.js"></script>
 <script src="data.js"></script>
 <script src="_seancesData_new.js"></script>
-<script src="ab_running_workouts_data.js"></script>
 <script>
 // ══════════════════════════════════════════════════
 // AUTH — Firebase Email/Password
@@ -720,7 +660,6 @@ function showTab(id,btn){
   if(id==='tab-cal') buildCalList();
   if(id==='tab-infos') buildInfosList();
   if(id==='tab-obj') buildObjList();
-  if(id==='tab-boutique') boutiqueLoad();
   if(id==='tab-trombi') trombiLoad();
   if(id==='tab-planner') plannerLoadList();
   if(id==='tab-props')   propsLoad();
@@ -1510,6 +1449,77 @@ let plannerCurrentId = null;  // doc ID en cours d'édition (null = nouvelle sé
 let plannerSeancesList = [];   // cache local
 let _plannerBlockIdx = 0;      // compteur d'IDs pour les blocs dynamiques
 
+// ── Cibles par étape (RPE / FC), façon Garmin ──
+const HR_ZONES = {
+  1: { label: 'Z1 Récupération', color: '#7BC3E5' },
+  2: { label: 'Z2 Endurance',    color: '#4A8A5A' },
+  3: { label: 'Z3 Tempo',        color: '#D4893A' },
+  4: { label: 'Z4 Seuil',        color: '#C04040' },
+  5: { label: 'Z5 VO2max',       color: '#6B2D90' }
+};
+
+function plannerTargetPickerHtml(target) {
+  const t = target || { type: 'none' };
+  const rpeMin = t.rpeMin ?? 3, rpeMax = t.rpeMax ?? 4, hrZone = t.hrZone ?? 2;
+  const hrOptions = Object.entries(HR_ZONES).map(([z, info]) =>
+    `<option value="${z}"${String(hrZone) === z ? ' selected' : ''}>${info.label}</option>`).join('');
+  return `
+    <select class="field-select pt-type" style="font-size:.68rem;padding:.3rem .5rem" onchange="plannerToggleTarget(this)">
+      <option value="none"${t.type==='none'?' selected':''}>Cible : aucune</option>
+      <option value="rpe"${t.type==='rpe'?' selected':''}>Cible : RPE</option>
+      <option value="hr"${t.type==='hr'?' selected':''}>Cible : FC (zone)</option>
+    </select>
+    <div class="pt-rpe" style="display:${t.type==='rpe'?'flex':'none'};gap:.3rem;align-items:center;margin-top:.25rem">
+      <input type="number" class="field-input pt-rpe-min" min="1" max="10" value="${rpeMin}" style="padding:.3rem .4rem">
+      <span style="font-size:.62rem;color:var(--muted)">à</span>
+      <input type="number" class="field-input pt-rpe-max" min="1" max="10" value="${rpeMax}" style="padding:.3rem .4rem">
+    </div>
+    <select class="field-select pt-hr" style="display:${t.type==='hr'?'block':'none'};font-size:.68rem;padding:.3rem .5rem;margin-top:.25rem">
+      ${hrOptions}
+    </select>
+  `;
+}
+
+// bascule l'affichage RPE/FC ; el = le <select class="pt-type"> qui vient de changer
+function plannerToggleTarget(el) {
+  const wrap = el.closest('.pl-target-picker');
+  if (!wrap) return;
+  const type = wrap.querySelector('.pt-type')?.value;
+  const rpeEl = wrap.querySelector('.pt-rpe');
+  const hrEl  = wrap.querySelector('.pt-hr');
+  if (rpeEl) rpeEl.style.display = type === 'rpe' ? 'flex' : 'none';
+  if (hrEl)  hrEl.style.display  = type === 'hr'  ? 'block' : 'none';
+  plannerCalculate();
+}
+
+function plannerReadTarget(wrap) {
+  if (!wrap) return null;
+  const type = wrap.querySelector('.pt-type')?.value || 'none';
+  if (type === 'none') return null;
+  if (type === 'rpe') return {
+    type: 'rpe',
+    rpeMin: parseInt(wrap.querySelector('.pt-rpe-min')?.value) || 1,
+    rpeMax: parseInt(wrap.querySelector('.pt-rpe-max')?.value) || 10
+  };
+  return { type: 'hr', hrZone: parseInt(wrap.querySelector('.pt-hr')?.value) || 2 };
+}
+
+function plannerTargetBadge(target) {
+  if (!target) return '';
+  if (target.type === 'rpe') return `<span class="pl-target-badge">🎯 RPE ${target.rpeMin}-${target.rpeMax}</span>`;
+  if (target.type === 'hr')  return `<span class="pl-target-badge" style="color:${HR_ZONES[target.hrZone]?.color}">❤️ ${HR_ZONES[target.hrZone]?.label}</span>`;
+  return '';
+}
+
+function plannerResetTargetPicker(wrapId, target) {
+  const wrap = document.getElementById(wrapId);
+  if (!wrap) return;
+  wrap.className = 'pl-target-picker';
+  wrap.innerHTML = plannerTargetPickerHtml(target);
+}
+plannerResetTargetPicker('planner-warmup-target-wrap', { type: 'rpe', rpeMin: 3, rpeMax: 4 });
+plannerResetTargetPicker('planner-cooldown-target-wrap', { type: 'rpe', rpeMin: 2, rpeMax: 3 });
+
 async function plannerLoadList() {
   const inner = document.getElementById('planner-list-inner');
   if (inner) inner.innerHTML = '<div style="color:var(--muted);font-size:.74rem;padding:.5rem">Chargement…</div>';
@@ -1523,6 +1533,7 @@ async function plannerLoadList() {
     });
     plannerSeancesList = [...seen.values()];
     plannerRenderList();
+    plannerUpdateStats();
   } catch(e) {
     if (inner) inner.innerHTML = '<div style="color:var(--rouge);font-size:.74rem;padding:.5rem">Erreur : ' + e.message + '</div>';
     toast('Erreur chargement seances_v3 : ' + e.message, 'error');
@@ -1601,17 +1612,56 @@ function plannerRenderList() {
       const deleteBtn = s._local
         ? `<button class="btn-sm danger" style="padding:.2rem .4rem;font-size:.62rem;opacity:.35" title="Séance locale (définie dans le code)" disabled>✕</button>`
         : `<button class="btn-sm danger" style="padding:.2rem .4rem;font-size:.62rem" onclick="plannerDeleteSeance('${s._docId}','${(s.title||'').replace(/'/g,"\\'")}')">✕</button>`;
-      html += `<div class="pl-list-item${active ? ' active-edit' : ''}">
-        <span style="font-size:.6rem;color:var(--muted);font-weight:700;min-width:36px">${s.id_original||'—'}</span>
-        <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.75rem">${s.title||'Sans titre'}${localBadge}</span>
-        <span style="font-size:.6rem;color:var(--gold);background:rgba(184,134,11,.1);padding:.1rem .3rem;border-radius:3px;font-weight:700;white-space:nowrap">${ua} UA</span>
-        <button class="btn-sm" style="padding:.2rem .45rem;font-size:.62rem" onclick="plannerEditSeance('${s._docId}')">✏️</button>
-        <button class="btn-sm" style="padding:.2rem .4rem;font-size:.62rem" title="Dupliquer" onclick="plannerDuplicateSeance('${s._docId}')">⧉</button>
-        ${deleteBtn}
+      const terrainIcon = s.terrain === 'Trail' ? '🌲' : (s.terrain === 'Piste' ? '🏟️' : '🛣️');
+      const descSnippet = (s.description||'').slice(0,90);
+      html += `<div class="pl-list-item${active ? ' active-edit' : ''}" onclick="plannerEditSeance('${s._docId}')">
+        <div style="display:flex;align-items:center;gap:.4rem;width:100%">
+          <span style="font-size:.6rem;color:var(--muted);font-weight:700;min-width:36px">${s.id_original||'—'}</span>
+          <span title="${s.terrain||'Route'}">${terrainIcon}</span>
+          <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.75rem">${s.title||'Sans titre'}${localBadge}</span>
+          <span style="font-size:.6rem;color:var(--gold);background:rgba(184,134,11,.1);padding:.1rem .3rem;border-radius:3px;font-weight:700;white-space:nowrap">${ua} UA</span>
+          <button class="btn-sm" style="padding:.2rem .45rem;font-size:.62rem" onclick="event.stopPropagation();plannerEditSeance('${s._docId}')">✏️</button>
+          <button class="btn-sm" style="padding:.2rem .4rem;font-size:.62rem" title="Dupliquer" onclick="event.stopPropagation();plannerDuplicateSeance('${s._docId}')">⧉</button>
+          <span onclick="event.stopPropagation()">${deleteBtn}</span>
+        </div>
+        ${descSnippet ? `<div style="font-size:.65rem;color:var(--muted);padding-left:2.3rem;margin-top:.15rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${descSnippet}${(s.description||'').length>90?'…':''}</div>` : ''}
       </div>`;
     });
   });
   inner.innerHTML = html;
+}
+
+function plannerUpdateStats() {
+  const el = document.getElementById('planner-stats-strip');
+  if (!el) return;
+  const list = plannerSeancesList;
+  if (!list.length) { el.innerHTML = ''; return; }
+  const avg = (arr) => Math.round(arr.reduce((s,v)=>s+v,0) / arr.length);
+  const avgRpe = avg(list.map(s => s.rpe_foster || 0));
+  const avgDur = avg(list.map(s => s.totalDuration || 0));
+  const maxUA  = Math.max(...list.map(s => s.totalUA || 0));
+  const nbCat  = new Set(list.map(s => s.category)).size;
+  el.innerHTML = `
+    <div class="pl-stat-tile"><div class="pl-stat-tile-val">${list.length}</div><div class="pl-stat-tile-lbl">Séances</div></div>
+    <div class="pl-stat-tile"><div class="pl-stat-tile-val">${nbCat}</div><div class="pl-stat-tile-lbl">Catégories</div></div>
+    <div class="pl-stat-tile"><div class="pl-stat-tile-val">${avgRpe}</div><div class="pl-stat-tile-lbl">RPE moyen</div></div>
+    <div class="pl-stat-tile"><div class="pl-stat-tile-val">${avgDur} min</div><div class="pl-stat-tile-lbl">Durée moyenne</div></div>
+    <div class="pl-stat-tile"><div class="pl-stat-tile-val">${maxUA}</div><div class="pl-stat-tile-lbl">Charge max (UA)</div></div>
+  `;
+}
+
+function plannerExportLibrary() {
+  if (!plannerSeancesList.length) return toast('Bibliothèque vide', 'error');
+  const blob = new Blob([JSON.stringify(plannerSeancesList, null, 2)], { type: 'application/json;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'bayonne-outdoor-club-seances-' + new Date().toISOString().slice(0,10) + '.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toast('Bibliothèque exportée (' + plannerSeancesList.length + ' séances)', 'success');
 }
 
 function plannerNewSeance() {
@@ -1628,6 +1678,8 @@ function plannerNewSeance() {
   document.getElementById('planner-rpe').value = 7;
   document.getElementById('planner-rpe-display').textContent = '7';
   document.getElementById('planner-blocks').innerHTML = '';
+  plannerResetTargetPicker('planner-warmup-target-wrap', { type: 'rpe', rpeMin: 3, rpeMax: 4 });
+  plannerResetTargetPicker('planner-cooldown-target-wrap', { type: 'rpe', rpeMin: 2, rpeMax: 3 });
   plannerCalculate();
   document.getElementById('planner-form-panel').style.display = 'block';
   plannerRenderList();
@@ -1650,6 +1702,8 @@ function plannerEditSeance(docId) {
   const rpe = s.rpe_foster || 7;
   document.getElementById('planner-rpe').value = rpe;
   document.getElementById('planner-rpe-display').textContent = rpe;
+  plannerResetTargetPicker('planner-warmup-target-wrap', s.warmupTarget || { type: 'none' });
+  plannerResetTargetPicker('planner-cooldown-target-wrap', s.cooldownTarget || { type: 'none' });
 
   document.getElementById('planner-blocks').innerHTML = '';
   (s.series || []).forEach(serie => {
@@ -1689,13 +1743,17 @@ async function plannerSaveSeance() {
   document.querySelectorAll('#planner-blocks .planner-item').forEach(item => {
     if (item.dataset.type === 'work') {
       const steps = [];
-      item.querySelectorAll('.pl-step-row').forEach(r => {
-        steps.push({
+      item.querySelectorAll('.pl-step-item').forEach(wrap => {
+        const r = wrap.querySelector('.pl-step-row');
+        const target = plannerReadTarget(wrap.querySelector('.pl-target-picker'));
+        const step = {
           stepReps: parseInt(r.querySelector('.ps-reps')?.value)  || 1,
           value:    parseFloat(r.querySelector('.ps-val')?.value)  || 0,
           unit:     r.querySelector('.ps-unit')?.value || 's',
           rest:     parseInt(r.querySelector('.ps-rest')?.value)  || 0
-        });
+        };
+        if (target) step.target = target;
+        steps.push(step);
       });
       series.push({
         type:          'work',
@@ -1708,6 +1766,9 @@ async function plannerSaveSeance() {
       series.push({ type: 'rest_block', value: parseInt(item.querySelector('.ps-rest-val')?.value) || 0 });
     }
   });
+
+  const warmupTarget   = plannerReadTarget(document.getElementById('planner-warmup-target-wrap'));
+  const cooldownTarget = plannerReadTarget(document.getElementById('planner-cooldown-target-wrap'));
 
   const workout = {
     id_original:   id,
@@ -1722,6 +1783,8 @@ async function plannerSaveSeance() {
     totalUA:       parseInt(document.getElementById('planner-stat-ua').textContent)       || 0,
     series
   };
+  if (warmupTarget)   workout.warmupTarget   = warmupTarget;
+  if (cooldownTarget) workout.cooldownTarget = cooldownTarget;
 
   const btn = document.getElementById('planner-save-btn');
   btn.disabled = true;
@@ -1782,12 +1845,16 @@ function plannerAddStep(serieIdx, data) {
   const val  = data?.value    ?? 30;
   const unit = data?.unit     ?? 's';
   const rest = data?.rest     ?? 30;
-  const html = `<div class="pl-step-row">
-    <div><span class="field-label">Nb</span><input type="number" class="field-input ps-reps" value="${sr}" min="1" oninput="plannerCalculate()"></div>
-    <div><span class="field-label">Effort</span><input type="number" class="field-input ps-val" value="${val}" step="0.1" min="0" oninput="plannerCalculate()"></div>
-    <div><span class="field-label">Unité</span><select class="field-select ps-unit" onchange="plannerCalculate()"><option value="s"${unit==='s'?' selected':''}>sec (")</option><option value="min"${unit==='min'?' selected':''}>min (')</option><option value="m"${unit==='m'?' selected':''}>m</option><option value="km"${unit==='km'?' selected':''}>km</option></select></div>
-    <div><span class="field-label">Récup (s)</span><input type="number" class="field-input ps-rest" value="${rest}" min="0" oninput="plannerCalculate()"></div>
-    <button class="btn-sm danger" style="align-self:flex-end;padding:.2rem .35rem" onclick="this.closest('.pl-step-row').remove();plannerCalculate()">✕</button>
+  const target = data?.target ?? { type: 'rpe', rpeMin: 7, rpeMax: 8 };
+  const html = `<div class="pl-step-item">
+    <div class="pl-step-row">
+      <div><span class="field-label">Nb</span><input type="number" class="field-input ps-reps" value="${sr}" min="1" oninput="plannerCalculate()"></div>
+      <div><span class="field-label">Effort</span><input type="number" class="field-input ps-val" value="${val}" step="0.1" min="0" oninput="plannerCalculate()"></div>
+      <div><span class="field-label">Unité</span><select class="field-select ps-unit" onchange="plannerCalculate()"><option value="s"${unit==='s'?' selected':''}>sec (")</option><option value="min"${unit==='min'?' selected':''}>min (')</option><option value="m"${unit==='m'?' selected':''}>m</option><option value="km"${unit==='km'?' selected':''}>km</option></select></div>
+      <div><span class="field-label">Récup (s)</span><input type="number" class="field-input ps-rest" value="${rest}" min="0" oninput="plannerCalculate()"></div>
+      <button class="btn-sm danger" style="align-self:flex-end;padding:.2rem .35rem" onclick="this.closest('.pl-step-item').remove();plannerCalculate()">✕</button>
+    </div>
+    <div class="pl-target-picker">${plannerTargetPickerHtml(target)}</div>
   </div>`;
   document.getElementById('pb-steps-' + serieIdx).insertAdjacentHTML('beforeend', html);
   plannerCalculate();
@@ -1831,6 +1898,67 @@ function plannerCalculate() {
   const elUA   = document.getElementById('planner-stat-ua');
   if (elDur) elDur.textContent = durMin;
   if (elUA)  elUA.textContent  = ua;
+  plannerRenderTimeline();
+}
+
+// Aperçu visuel façon Garmin : bande proportionnelle + légende, calculée depuis le formulaire en cours
+function plannerRenderTimeline() {
+  const el = document.getElementById('planner-timeline');
+  if (!el) return;
+  const SPEED_MS   = 4.166;
+  const warmupS    = parseFloat(document.getElementById('planner-warmup')?.value)   || 0;
+  const cooldownS  = parseFloat(document.getElementById('planner-cooldown')?.value) || 0;
+  const warmupTarget   = plannerReadTarget(document.getElementById('planner-warmup-target-wrap'));
+  const cooldownTarget = plannerReadTarget(document.getElementById('planner-cooldown-target-wrap'));
+
+  const segments = [];
+  if (warmupS > 0) segments.push({ sec: warmupS, cls: 'wu', label: 'Échauffement', target: warmupTarget });
+
+  document.querySelectorAll('#planner-blocks .planner-item').forEach(item => {
+    if (item.dataset.type === 'work') {
+      const sReps = parseFloat(item.querySelector('.ps-serie-reps')?.value) || 1;
+      const iReps = parseFloat(item.querySelector('.ps-inner-reps')?.value) || 1;
+      const sRest = parseFloat(item.querySelector('.ps-inter-rest')?.value) || 0;
+      let serieS = 0, firstTarget = null;
+      const stepLabels = [];
+      item.querySelectorAll('.pl-step-item').forEach(wrap => {
+        const row  = wrap.querySelector('.pl-step-row');
+        const n    = parseFloat(row.querySelector('.ps-reps')?.value) || 1;
+        const val  = parseFloat(row.querySelector('.ps-val')?.value)  || 0;
+        const u    = row.querySelector('.ps-unit')?.value;
+        const unitLabel = { s: '"', min: "'", m: 'm', km: 'km' }[u] || '"';
+        let effortSec;
+        if      (u === 's')   effortSec = val;
+        else if (u === 'min') effortSec = val * 60;
+        else if (u === 'm')   effortSec = val / SPEED_MS;
+        else if (u === 'km')  effortSec = val * 1000 / SPEED_MS;
+        else                  effortSec = val;
+        const rS = parseFloat(row.querySelector('.ps-rest')?.value) || 0;
+        serieS  += (effortSec + rS) * n;
+        const t  = plannerReadTarget(wrap.querySelector('.pl-target-picker'));
+        if (!firstTarget) firstTarget = t;
+        stepLabels.push(`${n > 1 ? n + '×' : ''}${val}${unitLabel}`);
+      });
+      const totalBlockS = (serieS * iReps * sReps) + (sRest * (sReps - 1));
+      const sr = sReps > 1 ? `${sReps}×` : '';
+      const ir = iReps > 1 ? `${iReps}×` : '';
+      segments.push({ sec: totalBlockS || 1, cls: 'work', label: `${sr}(${ir}${stepLabels.join(', ')})`, target: firstTarget });
+    } else {
+      const v = parseFloat(item.querySelector('.ps-rest-val')?.value) || 0;
+      segments.push({ sec: v || 1, cls: 'rest', label: 'Repos', target: null });
+    }
+  });
+
+  if (cooldownS > 0) segments.push({ sec: cooldownS, cls: 'cd', label: 'Retour au calme', target: cooldownTarget });
+
+  if (!segments.length) { el.innerHTML = ''; return; }
+  el.innerHTML = `
+    <div class="pl-timeline-bar">
+      ${segments.map(seg => `<div class="pl-timeline-seg pl-timeline-${seg.cls}" style="flex:${seg.sec}" title="${seg.label} — ${Math.round(seg.sec/60)} min"></div>`).join('')}
+    </div>
+    <div class="pl-timeline-legend">
+      ${segments.map(seg => `<span class="pl-timeline-chip pl-timeline-${seg.cls}">${seg.label} <small>${Math.round(seg.sec/60)}min</small> ${plannerTargetBadge(seg.target)}</span>`).join('')}
+    </div>`;
 }
 
 
@@ -1941,6 +2069,8 @@ function plannerDuplicateSeance(docId) {
   const rpe = s.rpe_foster || 7;
   document.getElementById('planner-rpe').value = rpe;
   document.getElementById('planner-rpe-display').textContent = rpe;
+  plannerResetTargetPicker('planner-warmup-target-wrap', s.warmupTarget || { type: 'none' });
+  plannerResetTargetPicker('planner-cooldown-target-wrap', s.cooldownTarget || { type: 'none' });
   document.getElementById('planner-blocks').innerHTML = '';
   (s.series || []).forEach(serie => {
     if (serie.type === 'work') plannerAddSerie(serie);
@@ -2157,170 +2287,6 @@ async function propsArchive(docId, title, btn) {
 }
 
 // ══════════════════════════════════════════════════
-// BOUTIQUE MANAGEMENT
-// ══════════════════════════════════════════════════
-let _btqArticles = [];
-let _btqOrderLink = '';
-let _btqEditIdx = -1;
-let _btqPendingPhoto = '';
-
-async function boutiqueLoad() {
-  try {
-    const data = await fbLoadBoutique();
-    _btqArticles = data.articles || [];
-    _btqOrderLink = data.orderLink || '';
-    
-    document.getElementById('btq-order-link').value = _btqOrderLink;
-    boutiqueRenderList();
-    boutiqueCancelEdit();
-  } catch(e) {
-    toast('Erreur chargement boutique : ' + e.message, 'error');
-  }
-}
-
-function boutiqueRenderList() {
-  const container = document.getElementById('btq-articles-list');
-  if (!container) return;
-  
-  if (_btqArticles.length === 0) {
-    container.innerHTML = '<div style="color:var(--muted);font-size:.78rem;padding:.5rem">Aucun article pour le moment.</div>';
-    return;
-  }
-  
-  container.innerHTML = _btqArticles.map((art, idx) => {
-    const priceStr = parseFloat(art.price).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
-    const imgHtml = art.photo 
-      ? `<img src="${art.photo}" style="width:40px;height:30px;object-fit:cover;border-radius:4px;border:1px solid var(--border)">`
-      : `<div style="width:40px;height:30px;background:var(--surface2);border-radius:4px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.8rem">🛍️</div>`;
-      
-    return `
-      <div style="display:flex;gap:.6rem;align-items:center;padding:.5rem;background:var(--surface2);border:1px solid var(--border);border-radius:8px">
-        ${imgHtml}
-        <div style="flex:1;min-width:0">
-          <div style="font-size:.78rem;font-weight:700;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${art.name}</div>
-          <div style="font-size:.65rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${art.desc || 'Pas de description'}</div>
-        </div>
-        <span style="font-size:.8rem;font-weight:800;color:var(--navy);margin-right:.4rem">${priceStr}</span>
-        <button class="btn-sm" onclick="boutiqueEditArticle(${idx})" title="Modifier">✏️</button>
-        <button class="btn-sm danger" onclick="boutiqueDeleteArticle(${idx})" title="Supprimer">✕</button>
-      </div>
-    `;
-  }).join('');
-}
-
-async function boutiqueSaveLink() {
-  const linkInput = document.getElementById('btq-order-link');
-  _btqOrderLink = linkInput.value.trim();
-  
-  try {
-    await fbSaveBoutique({ orderLink: _btqOrderLink, articles: _btqArticles });
-    toast('Lien du formulaire enregistré avec succès !', 'success');
-  } catch(e) {
-    toast('Erreur enregistrement lien : ' + e.message, 'error');
-  }
-}
-
-async function boutiqueSaveArticle() {
-  const name = document.getElementById('btq-art-name').value.trim();
-  const price = document.getElementById('btq-art-price').value.trim();
-  const desc = document.getElementById('btq-art-desc').value.trim();
-  
-  if (!name || !price) {
-    toast('Le nom et le prix sont obligatoires.', 'error');
-    return;
-  }
-  
-  const article = {
-    name,
-    price: parseFloat(price),
-    desc,
-    photo: _btqPendingPhoto
-  };
-  
-  try {
-    if (_btqEditIdx === -1) {
-      _btqArticles.push(article);
-    } else {
-      _btqArticles[_btqEditIdx] = article;
-    }
-    
-    await fbSaveBoutique({ orderLink: _btqOrderLink, articles: _btqArticles });
-    toast(_btqEditIdx === -1 ? 'Article ajouté !' : 'Article modifié !', 'success');
-    
-    boutiqueLoad();
-  } catch(e) {
-    toast('Erreur enregistrement article : ' + e.message, 'error');
-  }
-}
-
-function boutiqueEditArticle(idx) {
-  const art = _btqArticles[idx];
-  _btqEditIdx = idx;
-  
-  document.getElementById('btq-art-name').value = art.name;
-  document.getElementById('btq-art-price').value = art.price;
-  document.getElementById('btq-art-desc').value = art.desc || '';
-  document.getElementById('btq-art-photo-url').value = (art.photo && art.photo.startsWith('data:')) ? '' : (art.photo || '');
-  
-  _btqPendingPhoto = art.photo || '';
-  boutiqueUpdatePreview(_btqPendingPhoto);
-  
-  document.getElementById('btq-form-title').textContent = 'Modifier l\'article';
-  document.getElementById('btq-btn-cancel').style.display = 'inline-block';
-}
-
-async function boutiqueDeleteArticle(idx) {
-  if (!confirm('Supprimer cet article de la boutique ?')) return;
-  
-  try {
-    _btqArticles.splice(idx, 1);
-    await fbSaveBoutique({ orderLink: _btqOrderLink, articles: _btqArticles });
-    toast('Article supprimé.', 'success');
-    boutiqueLoad();
-  } catch(e) {
-    toast('Erreur suppression : ' + e.message, 'error');
-  }
-}
-
-function boutiqueCancelEdit() {
-  _btqEditIdx = -1;
-  document.getElementById('btq-art-name').value = '';
-  document.getElementById('btq-art-price').value = '';
-  document.getElementById('btq-art-desc').value = '';
-  document.getElementById('btq-art-photo-url').value = '';
-  document.getElementById('btq-art-photo-file').value = '';
-  _btqPendingPhoto = '';
-  boutiqueUpdatePreview('');
-  
-  document.getElementById('btq-form-title').textContent = 'Ajouter un article';
-  document.getElementById('btq-btn-cancel').style.display = 'none';
-}
-
-function boutiquePreviewUrl(url) {
-  _btqPendingPhoto = url;
-  boutiqueUpdatePreview(url);
-}
-
-function boutiquePreviewFile(input) {
-  if (!input.files || !input.files[0]) return;
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    _btqPendingPhoto = e.target.result;
-    boutiqueUpdatePreview(e.target.result);
-  };
-  reader.readAsDataURL(input.files[0]);
-}
-
-function boutiqueUpdatePreview(src) {
-  const wrap = document.getElementById('btq-photo-preview');
-  if (src) {
-    wrap.innerHTML = `<img src="${src}" alt="preview" style="width:100%;height:100%;object-fit:cover;">`;
-  } else {
-    wrap.innerHTML = '<span style="font-size:1.5rem;color:var(--border)">🖼️</span>';
-  }
-}
-
-// ══════════════════════════════════════════════════
 // TROMBINOSCOPE MANAGEMENT
 // ══════════════════════════════════════════════════
 let _trombiMembers = [];
@@ -2521,6 +2487,16 @@ async function initApp(){
     toast('Erreur chargement Firestore : '+e.message, 'error');
     document.getElementById('status-text').textContent = 'Erreur de connexion Firestore';
   }
+  openTabFromHash();
+}
+
+// Permet un lien direct type admin.html#tab-planner (utilisé par l'ancien créateur de séances)
+function openTabFromHash(){
+  const id = (location.hash || '').replace('#', '');
+  if (!id) return;
+  const page = document.getElementById(id);
+  const btn = document.querySelector(`.tab[onclick*="${id}"]`);
+  if (page && btn) showTab(id, btn);
 }
 </script>
 </body>

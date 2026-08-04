@@ -1,5 +1,5 @@
 // MAJ 31/05/26 14:31 — programme saison 2026-2027
-// data.js — AB Running Loisir (configuration statique)
+// data.js — Bayonne Outdoor Club (configuration statique)
 // Les données dynamiques (programme, séances, infosClub, objectifs,
 // calFixed, socleConfig) sont stockées dans Firebase Firestore.
 

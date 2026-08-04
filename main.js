@@ -1,6 +1,6 @@
 // MAJ 31/05/26 14:31
 // ══════════════════════════════════════════════════
-// AB Running — main.js
+// Bayonne Outdoor Club — main.js
 // All app logic, loaded after data.js
 // ══════════════════════════════════════════════════
 
@@ -363,6 +363,21 @@ function buildProg(){
 // DETAIL MODAL
 // ══════════════════════════════════════════════════
 
+// Zones FC façon Garmin — doit rester cohérent avec HR_ZONES dans admin.html
+const HR_ZONES = {
+  1: { label: 'Z1 Récup',   color: '#7BC3E5' },
+  2: { label: 'Z2 Endur.',  color: '#4A8A5A' },
+  3: { label: 'Z3 Tempo',   color: '#D4893A' },
+  4: { label: 'Z4 Seuil',   color: '#C04040' },
+  5: { label: 'Z5 VO2max',  color: '#6B2D90' }
+};
+function targetBadgeHtml(target) {
+  if (!target) return '';
+  if (target.type === 'rpe') return `<span style="font-size:.6rem;font-weight:700;padding:.1rem .35rem;border-radius:3px;background:rgba(184,134,11,.12);color:#B8860B;white-space:nowrap;margin-left:.3rem">🎯 RPE ${target.rpeMin}-${target.rpeMax}</span>`;
+  if (target.type === 'hr')  return `<span style="font-size:.6rem;font-weight:700;padding:.1rem .35rem;border-radius:3px;background:rgba(0,0,0,.05);color:${HR_ZONES[target.hrZone]?.color||'#333'};white-space:nowrap;margin-left:.3rem">❤️ ${HR_ZONES[target.hrZone]?.label||''}</span>`;
+  return '';
+}
+
 // Formate les blocs série v3 en chips lisibles
 function formatSeriesHtml(series) {
   if (!series || !series.length) return '';
@@ -387,7 +402,8 @@ function formatSeriesHtml(series) {
           ? ` R${Math.round(bloc.interSerieRest / 60)}min`
           : ` R${bloc.interSerieRest}s`)
       : '';
-    return `<span style="font-size:.68rem;padding:.22rem .55rem;border-radius:4px;background:rgba(27,58,107,.08);color:var(--navy);font-weight:600;white-space:nowrap">${sr}(${ir}${steps})${rest}</span>`;
+    const firstTarget = (bloc.steps || []).find(s => s.target)?.target;
+    return `<span style="font-size:.68rem;padding:.22rem .55rem;border-radius:4px;background:rgba(27,58,107,.08);color:var(--navy);font-weight:600;white-space:nowrap">${sr}(${ir}${steps})${rest}${targetBadgeHtml(firstTarget)}</span>`;
   }).join('');
 }
 
@@ -419,8 +435,8 @@ function openDetail(sn){
     // Bloc structure v3 (séries/étapes du planificateur)
     const v3StructureHtml = hasV3 ? `<div style="margin-bottom:.6rem">
       ${(data.warmupSec || data.cooldownSec) ? `<div style="font-size:.65rem;color:var(--muted);margin-bottom:.35rem">
-        🏃 Écht.&nbsp;${Math.round((data.warmupSec||0)/60)}&thinsp;min
-        &nbsp;·&nbsp;R.calme&nbsp;${Math.round((data.cooldownSec||0)/60)}&thinsp;min
+        🏃 Écht.&nbsp;${Math.round((data.warmupSec||0)/60)}&thinsp;min${targetBadgeHtml(data.warmupTarget)}
+        &nbsp;·&nbsp;R.calme&nbsp;${Math.round((data.cooldownSec||0)/60)}&thinsp;min${targetBadgeHtml(data.cooldownTarget)}
         ${data.d ? `&nbsp;·&nbsp;⏱&nbsp;${data.d}&thinsp;min` : ''}
       </div>` : ''}
       <div style="display:flex;flex-wrap:wrap;gap:.3rem">${formatSeriesHtml(data.series)}</div>

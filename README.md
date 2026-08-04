@@ -1,4 +1,4 @@
-# AB Running Loisir — v4
+# Bayonne Outdoor Club — v4
 
 ## Architecture
 
@@ -9,7 +9,7 @@
 | `data.js` | 562 | Bibliothèque 80 séances, programme 52 sem (compact), objectifs, seuils, calendrier, circuits PPG |
 | `index.html` | 726 | Interface publique (CSS + HTML + JS fusionné) : accueil, programme, calculateur, renforcement |
 | `admin.html` | 701 | Interface coach : édition programme/séances/calendrier/infos, publication GitHub |
-| `logo_ab.avif` | — | Logo Aviron Bayonnais |
+| `logo_ab.avif` | — | Ancien logo (Aviron Bayonnais), non utilisé — à remplacer par le logo Bayonne Outdoor Club |
 
 ## Format compact data.js
 

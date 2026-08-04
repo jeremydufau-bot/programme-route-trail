@@ -303,20 +303,6 @@ async function fbImportSeancesV3(workouts, onProgress) {
 // BOUTIQUE
 // ══════════════════════════════════════════════════
 
-async function fbLoadBoutique() {
-  try {
-    const doc = await db.collection('config').doc('boutique').get();
-    return doc.exists ? doc.data() : { orderLink: '', articles: [] };
-  } catch(e) {
-    console.error('fbLoadBoutique :', e);
-    return { orderLink: '', articles: [] };
-  }
-}
-
-async function fbSaveBoutique(data) {
-  await db.collection('config').doc('boutique').set(data);
-}
-
 // ══════════════════════════════════════════════════
 // TROMBINOSCOPE
 // ══════════════════════════════════════════════════
