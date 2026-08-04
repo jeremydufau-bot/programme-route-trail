@@ -9,7 +9,7 @@
 | `data.js` | 562 | Bibliothèque 80 séances, programme 52 sem (compact), objectifs, seuils, calendrier, circuits PPG |
 | `index.html` | 726 | Interface publique (CSS + HTML + JS fusionné) : accueil, programme, calculateur, renforcement |
 | `admin.html` | 701 | Interface coach : édition programme/séances/calendrier/infos, publication GitHub |
-| `logo_ab.avif` | — | Ancien logo (Aviron Bayonnais), non utilisé — à remplacer par le logo Bayonne Outdoor Club |
+| `logo_boc.png` | — | Logo Bayonne Outdoor Club (utilisé dans les en-têtes et en favicon) |
 
 ## Format compact data.js
 
